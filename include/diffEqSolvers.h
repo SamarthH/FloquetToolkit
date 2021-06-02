@@ -11,8 +11,14 @@
 #include <gsl/gsl_complex.h>
 #include <gsl/gsl_complex_math.h>
 
+#define GSL_RANGE_CHECK_OFF
+
 #define RK4_MAX_SCALE 5
 #define RK4_MIN_SCALE 0.2
+#define RK4_MAX_SLICES 1e8
+#define BULSTO_STEP_MAX 16
+#define BULSTO_MAX_LAYERS 16
+
 
 /*******************************************************************************
  * \brief Fixed Step RK4 for vectors for general \f$ \dot{x} = f_\lambda(x,t) \f$
@@ -74,5 +80,19 @@ void rk4_fixed_final_matrix_floquet_type_complex(gsl_matrix_complex* x_i, double
 
 void rk4_adaptive_final_matrix_floquet_type_real(gsl_matrix* x_i, double t_i, double H, double delta, void (*A)(double, gsl_matrix*, void*), gsl_matrix* x_f, void* params);
 
+/*******************************************************************************
+ * \brief Bulirsch-Stoer Method for real matrices for evolution of the form \f$ \dot{X} = A_\lambda(t)X \f$
+ *
+ * Implemented according to Computational Physics, Mark Newman (2013)
+ * @param x_i Initial Matrix \f$ x_i \in  \mathbb{R}^{n\cross m} \f$
+ * @param t_i Time when x_i is specified
+ * @param H Interval after which final x is required
+ * @param delta Maximum error allowed per unit time (The error is taken to be the maximum of the error of each element of the matrix)
+ * @param evol_func Function that computes \f$ A_\lambda(t) \f$. The function should be of the form void A(double t, gsl_matrix* out, void* params)
+ * @param x_f Array to store the final x into. This should be preallocated
+ * @param params Parameters to be passed to A(t)
+ ******************************************************************************/
+
+void bulsto_final_matrix_floquet_type_real(gsl_matrix* x_i, double t_i, double H, double delta, void (*A)(double, gsl_matrix*, void*), gsl_matrix* x_f, void* params);
 
 #endif

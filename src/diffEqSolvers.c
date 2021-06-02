@@ -163,6 +163,7 @@ void rk4_fixed_final_matrix_floquet_type_complex(gsl_matrix_complex* x_i, double
 
 void rk4_adaptive_final_matrix_floquet_type_real(gsl_matrix* x_i, double t_i, double H, double delta, void (*A)(double, gsl_matrix*, void*), gsl_matrix* x_f, void* params)
 {
+	double h_min = H/RK4_MAX_SLICES;
 	int nr = x_i->size1;
 	int nc = x_i->size2;
 	gsl_matrix* k[4];
@@ -287,11 +288,9 @@ void rk4_adaptive_final_matrix_floquet_type_real(gsl_matrix* x_i, double t_i, do
 		gsl_matrix_scale(k_in[3], 1./6.);
 		gsl_matrix_add(x2,k_in[3]);
 
-		//printf("%lf %lf %e %lf %lf %lf %lf ",gsl_matrix_get(x_f,0,0), gsl_matrix_get(x_f,1,1), h,gsl_matrix_get(x1,0,0), gsl_matrix_get(x1,1,1),gsl_matrix_get(x2,0,0), gsl_matrix_get(x2,1,1)  );
 		// Evaluate Error
 		gsl_matrix_sub(x2,x1);
 		double rho_to_the_fourth = (30.*h*delta)/GSL_MAX(gsl_matrix_max(x2), -1.*gsl_matrix_min(x2));
-		//printf("%e %e\n",GSL_MAX(gsl_matrix_max(x2), -1.*gsl_matrix_min(x2)),rho_to_the_fourth );
 		rho_to_the_fourth = pow(rho_to_the_fourth,0.25);
 		if (rho_to_the_fourth>1)
 		{
@@ -302,11 +301,21 @@ void rk4_adaptive_final_matrix_floquet_type_real(gsl_matrix* x_i, double t_i, do
 			h = h*(GSL_MIN(rho_to_the_fourth, RK4_MAX_SCALE));
 			h = GSL_MIN(0.5*(t_f-t),h);
 		}
-		else
+		else if(h > h_min)
 		{
 			h = h*(GSL_MAX(rho_to_the_fourth, RK4_MIN_SCALE));
 		}
+		else
+		{
+			gsl_matrix_memcpy(x_f,x1);
+			gsl_matrix_scale(x2, -1./15.);
+			gsl_matrix_add(x_f,x2);
+			t += 2*h;
+			h = h_min;
+		}
 	}
+
+	gsl_matrix_free(A_val);
 
 	for (int i = 0; i < 4; ++i)
 	{
@@ -316,4 +325,133 @@ void rk4_adaptive_final_matrix_floquet_type_real(gsl_matrix* x_i, double t_i, do
 
 	gsl_matrix_free(x1);
 	gsl_matrix_free(x2);
+}
+
+void __midpoint_method(gsl_matrix* x, double t_i, double H, double h, void (*A)(double, gsl_matrix*, void*), gsl_matrix* x_f, void* params, gsl_matrix* y, gsl_matrix* eval)
+{
+	double t = t_i;
+	double t_f = t_i + H;
+	double h_2 = h/2.;
+	gsl_matrix_memcpy(x_f,x);
+	
+	A(t,eval,params);
+	gsl_blas_dgemm(CblasNoTrans,CblasNoTrans,h_2,eval,x_f,0.,y);
+	gsl_matrix_add(y,x_f);
+
+	A(t+h_2,eval,params);
+	gsl_blas_dgemm(CblasNoTrans,CblasNoTrans,h,eval,y,1.,x_f);
+	t+=h;
+
+	while(t<t_f)
+	{
+		A(t,eval,params);
+		gsl_blas_dgemm(CblasNoTrans,CblasNoTrans,h,eval,x_f,1.,y);
+
+		A(t+h_2,eval,params);
+		gsl_blas_dgemm(CblasNoTrans,CblasNoTrans,h,eval,y,1.,x_f);
+
+		t+= h;
+	}
+
+	A(t,eval,params);
+	gsl_blas_dgemm(CblasNoTrans,CblasNoTrans,h_2,eval,x_f,1.,y);
+	gsl_matrix_add(x_f,y);
+	gsl_matrix_scale(x_f,0.5);
+
+}
+
+double __bulsto_final_matrix_floquet_type_real_main(gsl_matrix* x_i, double t_i, double H, double delta, void (*A)(double, gsl_matrix*, void*), gsl_matrix* x_f, void* params, gsl_matrix* y, gsl_matrix* eval, gsl_matrix** R1, gsl_matrix** R2, gsl_matrix* epsilon)
+{
+	int ndim = x_i->size1;
+	
+
+	//printf("0 ERR %e %e %e %e\n", gsl_matrix_get(x_i,0,0), gsl_matrix_get(x_i,0,1), gsl_matrix_get(x_i,1,0), gsl_matrix_get(x_i,1,1));
+
+	int n = 1;
+	double h = H;
+	__midpoint_method(x_i, t_i, H, h, A, R1[0], params, y, eval);
+	double error = 2*H*delta;
+
+	gsl_matrix** temp;
+
+	//printf("%d %e %e %e %e %e\n", n, error, gsl_matrix_get(R1[0],0,0), gsl_matrix_get(R1[0],0,1), gsl_matrix_get(R1[0],1,0), gsl_matrix_get(R1[0],1,1));
+	while (error > H*delta && n<BULSTO_STEP_MAX)
+	{
+		n++;
+		h = H/n;
+
+		// Swapping the arrays of matrices to save space
+		temp = R2;
+		R2 = R1;
+		R1 = temp;
+
+		double scaler = n/(n-1.);
+		scaler *= scaler;
+
+		double scale = 1.;
+		__midpoint_method(x_i, t_i, H, h, A, R1[0], params, y, eval);
+		for (int m = 1; m < n; ++m)
+		{
+			scale *= scaler;
+			gsl_matrix_memcpy(epsilon,R1[m-1]);
+			gsl_matrix_sub(epsilon,R2[m-1]);
+			gsl_matrix_scale(epsilon, 1./(scale-1.));
+
+			gsl_matrix_memcpy(R1[m],R1[m-1]);
+			gsl_matrix_add(R1[m],epsilon);
+		}
+		error = GSL_MAX(gsl_matrix_max(epsilon), -1.*gsl_matrix_min(epsilon));
+		//printf("%d %e %e %e %e %e %e\n", n, H, error, gsl_matrix_get(R1[0],0,0), gsl_matrix_get(R1[0],0,1), gsl_matrix_get(R1[0],1,0), gsl_matrix_get(R1[0],1,1));
+	}
+
+	gsl_matrix_memcpy(x_f,R1[n-1]);
+
+	return error;
+}
+
+double __bulsto_final_matrix_floquet_type_real_runner(int nlayer, gsl_matrix* x_i, double t_i, double H, double delta, void (*A)(double, gsl_matrix*, void*), gsl_matrix* x_f, void* params, gsl_matrix* y, gsl_matrix* eval, gsl_matrix** R1, gsl_matrix** R2, gsl_matrix* epsilon)
+{
+	int ndim = x_i->size1;
+	gsl_matrix* xfin = gsl_matrix_alloc(ndim,ndim);
+	double error = __bulsto_final_matrix_floquet_type_real_main(x_i, t_i, H, delta, A, xfin, params, y, eval, R1, R2, epsilon);
+	nlayer++;
+	if (error > H*delta && nlayer < BULSTO_MAX_LAYERS)
+	{
+		error = __bulsto_final_matrix_floquet_type_real_runner(nlayer, x_i, t_i, H/2., delta, A, xfin, params, y, eval, R1, R2, epsilon);
+		error += __bulsto_final_matrix_floquet_type_real_runner(nlayer, xfin, t_i+(H/2.), H/2., delta, A, xfin, params, y, eval, R1, R2, epsilon);
+	}
+	gsl_matrix_memcpy(x_f,xfin);
+	gsl_matrix_free(xfin);
+	return error;
+}
+
+void bulsto_final_matrix_floquet_type_real(gsl_matrix* x_i, double t_i, double H, double delta, void (*A)(double, gsl_matrix*, void*), gsl_matrix* x_f, void* params)
+{
+	// This program only initializes and provides and frees temp variables
+	int ndim = x_i->size1;
+	gsl_matrix** R1 = (gsl_matrix**) malloc((BULSTO_STEP_MAX+1)*sizeof(gsl_matrix*));
+	gsl_matrix** R2 = (gsl_matrix**) malloc((BULSTO_STEP_MAX+1)*sizeof(gsl_matrix*));
+
+	for (int i = 0; i <= BULSTO_STEP_MAX; ++i)
+	{
+		R1[i] = gsl_matrix_alloc(ndim,ndim);
+		R2[i] = gsl_matrix_alloc(ndim,ndim);
+	}
+
+	gsl_matrix* y = gsl_matrix_alloc(ndim,ndim);
+	gsl_matrix* eval = gsl_matrix_alloc(ndim,ndim);
+	gsl_matrix* epsilon = gsl_matrix_calloc(ndim,ndim);
+
+	__bulsto_final_matrix_floquet_type_real_runner(0, x_i, t_i, H, delta, A, x_f, params, y, eval, R1, R2, epsilon);
+	//printf("%e %e %e\n",error, H, error/H);
+	for (int i = 0; i <= BULSTO_STEP_MAX; ++i)
+	{
+		gsl_matrix_free(R1[i]);
+		gsl_matrix_free(R2[i]);
+	}
+	free(R1);
+	free(R2);
+	gsl_matrix_free(y);
+	gsl_matrix_free(eval);
+	gsl_matrix_free(epsilon);
 }

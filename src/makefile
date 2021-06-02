@@ -1,17 +1,17 @@
 IDIR =../include
 CC=gcc
 CFLAGS=-I$(IDIR) -Wall 
-EXTRAFLAGS=
+EXTRAFLAGS= -m64 -Ofast
 
 ODIR=obj
 LDIR =../lib
 
-LIBS= -lm -lgsl -lgslcblas
+LIBS= -lm -lgsl -lgslcblas -fopenmp
 
-_DEPS = diffEqSolvers.h
+_DEPS = diffEqSolvers.h floquet.h
 DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
 
-_OBJ = diffEqSolvers.o tests.o
+_OBJ = diffEqSolvers.o floquet.o tests.o
 OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
 
 
