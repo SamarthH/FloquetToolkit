@@ -1,6 +1,0 @@
- Dominant Floquet Multiplier as a function of Dispersal rate $d$
-$d$
-$\max(|\rho|)$
-0.000000
-100.000000
-1024
