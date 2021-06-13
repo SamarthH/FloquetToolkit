@@ -1,0 +1,88 @@
+\begin{theindex}
+
+  \item {bulsto\_final\_matrix\_floquet\_type\_real}
+    \subitem {diffEqSolvers.c}, \hyperpage{21}
+    \subitem {diffEqSolvers.h}, \hyperpage{6}
+
+  \indexspace
+
+  \item {diffEqSolvers.c}
+    \subitem {bulsto\_final\_matrix\_floquet\_type\_real}, 
+		\hyperpage{21}
+    \subitem {rk4\_adaptive\_final\_matrix\_floquet\_type\_real}, 
+		\hyperpage{22}
+    \subitem {rk4\_fixed\_final\_matrix\_floquet\_type\_complex}, 
+		\hyperpage{24}
+    \subitem {rk4\_fixed\_final\_matrix\_floquet\_type\_real}, 
+		\hyperpage{26}
+    \subitem {rk4\_fixed\_final\_vector\_real}, \hyperpage{27}
+  \item {diffEqSolvers.h}
+    \subitem {bulsto\_final\_matrix\_floquet\_type\_real}, 
+		\hyperpage{6}
+    \subitem {rk4\_adaptive\_final\_matrix\_floquet\_type\_real}, 
+		\hyperpage{7}
+    \subitem {rk4\_fixed\_final\_matrix\_floquet\_type\_complex}, 
+		\hyperpage{9}
+    \subitem {rk4\_fixed\_final\_matrix\_floquet\_type\_real}, 
+		\hyperpage{11}
+    \subitem {rk4\_fixed\_final\_vector\_real}, \hyperpage{13}
+
+  \indexspace
+
+  \item {floquet.c}
+    \subitem {floquet\_get\_stability\_array\_real\_double\_param\_general}, 
+		\hyperpage{34}
+    \subitem {floquet\_get\_stability\_array\_real\_single\_param\_general}, 
+		\hyperpage{35}
+    \subitem {floquet\_get\_stability\_reals\_general}, \hyperpage{36}
+  \item {floquet.h}
+    \subitem {floquet\_get\_stability\_array\_real\_double\_param\_general}, 
+		\hyperpage{15}
+    \subitem {floquet\_get\_stability\_array\_real\_single\_param\_general}, 
+		\hyperpage{16}
+    \subitem {floquet\_get\_stability\_reals\_general}, \hyperpage{17}
+  \item {floquet\_get\_stability\_array\_real\_double\_param\_general}
+    \subitem {floquet.c}, \hyperpage{34}
+    \subitem {floquet.h}, \hyperpage{15}
+  \item {floquet\_get\_stability\_array\_real\_single\_param\_general}
+    \subitem {floquet.c}, \hyperpage{35}
+    \subitem {floquet.h}, \hyperpage{16}
+  \item {floquet\_get\_stability\_reals\_general}
+    \subitem {floquet.c}, \hyperpage{36}
+    \subitem {floquet.h}, \hyperpage{17}
+
+  \indexspace
+
+  \item {include/diffEqSolvers.h}, \hyperpage{5}, \hyperpage{13}
+  \item {include/floquet.h}, \hyperpage{14}, \hyperpage{20}
+
+  \indexspace
+
+  \item {rk4\_adaptive\_final\_matrix\_floquet\_type\_real}
+    \subitem {diffEqSolvers.c}, \hyperpage{22}
+    \subitem {diffEqSolvers.h}, \hyperpage{7}
+  \item {rk4\_fixed\_final\_matrix\_floquet\_type\_complex}
+    \subitem {diffEqSolvers.c}, \hyperpage{24}
+    \subitem {diffEqSolvers.h}, \hyperpage{9}
+  \item {rk4\_fixed\_final\_matrix\_floquet\_type\_real}
+    \subitem {diffEqSolvers.c}, \hyperpage{26}
+    \subitem {diffEqSolvers.h}, \hyperpage{11}
+  \item {rk4\_fixed\_final\_vector\_real}
+    \subitem {diffEqSolvers.c}, \hyperpage{27}
+    \subitem {diffEqSolvers.h}, \hyperpage{13}
+
+  \indexspace
+
+  \item {src/diffEqSolvers.c}, \hyperpage{20}, \hyperpage{28}
+  \item {src/floquet.c}, \hyperpage{33}, \hyperpage{39}
+  \item {src/hill\_meissner.c}, \hyperpage{41}
+  \item {src/hill\_meissner\_damped1.c}, \hyperpage{42, 43}
+  \item {src/hill\_meissner\_damped2.c}, \hyperpage{44}
+  \item {src/mathieu\_damped\_k\_0\_1.c}, \hyperpage{45, 46}
+  \item {src/mathieu\_damped\_k\_0\_5.c}, \hyperpage{47, 48}
+  \item {src/mathieu\_damped\_k\_1.c}, \hyperpage{49}
+  \item {src/mathieu\_damped\_k\_10.c}, \hyperpage{50, 51}
+  \item {src/mathieu\_undamped.c}, \hyperpage{52, 53}
+  \item {src/population\_dynamics.c}, \hyperpage{54}
+
+\end{theindex}

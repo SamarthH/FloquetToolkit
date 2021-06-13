@@ -1,0 +1,140 @@
+\hypertarget{namespaceplotter__2d}{}\doxysection{plotter\+\_\+2d Namespace Reference}
+\label{namespaceplotter__2d}\index{plotter\_2d@{plotter\_2d}}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceplotter__2d_a1df8fcdacfec00fc258a3c72772c2f18}{stability}} = np.\+loadtxt(\char`\"{}stability.\+csv\char`\"{},delimiter=\textquotesingle{},\textquotesingle{},dtype=int)
+\item 
+\mbox{\hyperlink{namespaceplotter__2d_a945fec2eec92b87dcd78ba3d2c6eea0d}{largest\+\_\+eigen}} = np.\+loadtxt(\char`\"{}largest\+\_\+multiplier\+\_\+abs.\+csv\char`\"{},delimiter=\textquotesingle{},\textquotesingle{},dtype=float)
+\item 
+\mbox{\hyperlink{namespaceplotter__2d_a41000f175dc0115080e2a682cc06dbe9}{params}} = open(\char`\"{}extraparams.\+txt\char`\"{},\textquotesingle{}r\textquotesingle{})
+\item 
+\mbox{\hyperlink{namespaceplotter__2d_a2d247890afaaa65db9e7f3884bc88dc2}{plot\+\_\+title}} = next(\mbox{\hyperlink{namespaceplotter__2d_a41000f175dc0115080e2a682cc06dbe9}{params}})
+\item 
+\mbox{\hyperlink{namespaceplotter__2d_a250828ef0a860a83620c9ba673c8313d}{plot\+\_\+xlabel}} = next(\mbox{\hyperlink{namespaceplotter__2d_a41000f175dc0115080e2a682cc06dbe9}{params}})
+\item 
+\mbox{\hyperlink{namespaceplotter__2d_a59a26a222534766656ec2f42a7880524}{plot\+\_\+ylabel}} = next(\mbox{\hyperlink{namespaceplotter__2d_a41000f175dc0115080e2a682cc06dbe9}{params}})
+\item 
+list \mbox{\hyperlink{namespaceplotter__2d_aaa0f7ac4e6230f68394d5565b50b441e}{plot\+\_\+xs}} = \mbox{[}float(x) for x in next(\mbox{\hyperlink{namespaceplotter__2d_a41000f175dc0115080e2a682cc06dbe9}{params}}).split()\mbox{]}
+\item 
+list \mbox{\hyperlink{namespaceplotter__2d_a8df28d6ea146db1994ac36ff9b5ede04}{plot\+\_\+xe}} = \mbox{[}float(x) for x in next(\mbox{\hyperlink{namespaceplotter__2d_a41000f175dc0115080e2a682cc06dbe9}{params}}).split()\mbox{]}
+\item 
+\mbox{\hyperlink{namespaceplotter__2d_adfaad771c2d636eec6ac27f95f256e1a}{nstep}} = int(next(\mbox{\hyperlink{namespaceplotter__2d_a41000f175dc0115080e2a682cc06dbe9}{params}}))
+\item 
+\mbox{\hyperlink{namespaceplotter__2d_a51f20d6b1b54a2eee3be0e8adc96a0ae}{param}} = np.\+linspace(\mbox{\hyperlink{namespaceplotter__2d_aaa0f7ac4e6230f68394d5565b50b441e}{plot\+\_\+xs}},\mbox{\hyperlink{namespaceplotter__2d_a8df28d6ea146db1994ac36ff9b5ede04}{plot\+\_\+xe}},\mbox{\hyperlink{namespaceplotter__2d_adfaad771c2d636eec6ac27f95f256e1a}{nstep}})
+\item 
+\mbox{\hyperlink{namespaceplotter__2d_ab4024db5b48e2ddd9bcd43847f10f016}{dpi}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{namespaceplotter__2d_ab4024db5b48e2ddd9bcd43847f10f016}\label{namespaceplotter__2d_ab4024db5b48e2ddd9bcd43847f10f016}} 
+\index{plotter\_2d@{plotter\_2d}!dpi@{dpi}}
+\index{dpi@{dpi}!plotter\_2d@{plotter\_2d}}
+\doxysubsubsection{\texorpdfstring{dpi}{dpi}}
+{\footnotesize\ttfamily dpi}
+
+
+
+Definition at line \mbox{\hyperlink{population__dynamics__1_2plotter__2d_8py_source_l00024}{24}} of file \mbox{\hyperlink{population__dynamics__1_2plotter__2d_8py_source}{plotter\+\_\+2d.\+py}}.
+
+\mbox{\Hypertarget{namespaceplotter__2d_a945fec2eec92b87dcd78ba3d2c6eea0d}\label{namespaceplotter__2d_a945fec2eec92b87dcd78ba3d2c6eea0d}} 
+\index{plotter\_2d@{plotter\_2d}!largest\_eigen@{largest\_eigen}}
+\index{largest\_eigen@{largest\_eigen}!plotter\_2d@{plotter\_2d}}
+\doxysubsubsection{\texorpdfstring{largest\_eigen}{largest\_eigen}}
+{\footnotesize\ttfamily largest\+\_\+eigen = np.\+loadtxt(\char`\"{}largest\+\_\+multiplier\+\_\+abs.\+csv\char`\"{},delimiter=\textquotesingle{},\textquotesingle{},dtype=float)}
+
+
+
+Definition at line \mbox{\hyperlink{population__dynamics__1_2plotter__2d_8py_source_l00006}{6}} of file \mbox{\hyperlink{population__dynamics__1_2plotter__2d_8py_source}{plotter\+\_\+2d.\+py}}.
+
+\mbox{\Hypertarget{namespaceplotter__2d_adfaad771c2d636eec6ac27f95f256e1a}\label{namespaceplotter__2d_adfaad771c2d636eec6ac27f95f256e1a}} 
+\index{plotter\_2d@{plotter\_2d}!nstep@{nstep}}
+\index{nstep@{nstep}!plotter\_2d@{plotter\_2d}}
+\doxysubsubsection{\texorpdfstring{nstep}{nstep}}
+{\footnotesize\ttfamily nstep = int(next(\mbox{\hyperlink{namespaceplotter__2d_a41000f175dc0115080e2a682cc06dbe9}{params}}))}
+
+
+
+Definition at line \mbox{\hyperlink{population__dynamics__1_2plotter__2d_8py_source_l00017}{17}} of file \mbox{\hyperlink{population__dynamics__1_2plotter__2d_8py_source}{plotter\+\_\+2d.\+py}}.
+
+\mbox{\Hypertarget{namespaceplotter__2d_a51f20d6b1b54a2eee3be0e8adc96a0ae}\label{namespaceplotter__2d_a51f20d6b1b54a2eee3be0e8adc96a0ae}} 
+\index{plotter\_2d@{plotter\_2d}!param@{param}}
+\index{param@{param}!plotter\_2d@{plotter\_2d}}
+\doxysubsubsection{\texorpdfstring{param}{param}}
+{\footnotesize\ttfamily param = np.\+linspace(\mbox{\hyperlink{namespaceplotter__2d_aaa0f7ac4e6230f68394d5565b50b441e}{plot\+\_\+xs}},\mbox{\hyperlink{namespaceplotter__2d_a8df28d6ea146db1994ac36ff9b5ede04}{plot\+\_\+xe}},\mbox{\hyperlink{namespaceplotter__2d_adfaad771c2d636eec6ac27f95f256e1a}{nstep}})}
+
+
+
+Definition at line \mbox{\hyperlink{population__dynamics__1_2plotter__2d_8py_source_l00019}{19}} of file \mbox{\hyperlink{population__dynamics__1_2plotter__2d_8py_source}{plotter\+\_\+2d.\+py}}.
+
+\mbox{\Hypertarget{namespaceplotter__2d_a41000f175dc0115080e2a682cc06dbe9}\label{namespaceplotter__2d_a41000f175dc0115080e2a682cc06dbe9}} 
+\index{plotter\_2d@{plotter\_2d}!params@{params}}
+\index{params@{params}!plotter\_2d@{plotter\_2d}}
+\doxysubsubsection{\texorpdfstring{params}{params}}
+{\footnotesize\ttfamily params = open(\char`\"{}extraparams.\+txt\char`\"{},\textquotesingle{}r\textquotesingle{})}
+
+
+
+Definition at line \mbox{\hyperlink{population__dynamics__1_2plotter__2d_8py_source_l00011}{11}} of file \mbox{\hyperlink{population__dynamics__1_2plotter__2d_8py_source}{plotter\+\_\+2d.\+py}}.
+
+\mbox{\Hypertarget{namespaceplotter__2d_a2d247890afaaa65db9e7f3884bc88dc2}\label{namespaceplotter__2d_a2d247890afaaa65db9e7f3884bc88dc2}} 
+\index{plotter\_2d@{plotter\_2d}!plot\_title@{plot\_title}}
+\index{plot\_title@{plot\_title}!plotter\_2d@{plotter\_2d}}
+\doxysubsubsection{\texorpdfstring{plot\_title}{plot\_title}}
+{\footnotesize\ttfamily plot\+\_\+title = next(\mbox{\hyperlink{namespaceplotter__2d_a41000f175dc0115080e2a682cc06dbe9}{params}})}
+
+
+
+Definition at line \mbox{\hyperlink{population__dynamics__1_2plotter__2d_8py_source_l00012}{12}} of file \mbox{\hyperlink{population__dynamics__1_2plotter__2d_8py_source}{plotter\+\_\+2d.\+py}}.
+
+\mbox{\Hypertarget{namespaceplotter__2d_a8df28d6ea146db1994ac36ff9b5ede04}\label{namespaceplotter__2d_a8df28d6ea146db1994ac36ff9b5ede04}} 
+\index{plotter\_2d@{plotter\_2d}!plot\_xe@{plot\_xe}}
+\index{plot\_xe@{plot\_xe}!plotter\_2d@{plotter\_2d}}
+\doxysubsubsection{\texorpdfstring{plot\_xe}{plot\_xe}}
+{\footnotesize\ttfamily list plot\+\_\+xe = \mbox{[}float(x) for x in next(\mbox{\hyperlink{namespaceplotter__2d_a41000f175dc0115080e2a682cc06dbe9}{params}}).split()\mbox{]}}
+
+
+
+Definition at line \mbox{\hyperlink{population__dynamics__1_2plotter__2d_8py_source_l00016}{16}} of file \mbox{\hyperlink{population__dynamics__1_2plotter__2d_8py_source}{plotter\+\_\+2d.\+py}}.
+
+\mbox{\Hypertarget{namespaceplotter__2d_a250828ef0a860a83620c9ba673c8313d}\label{namespaceplotter__2d_a250828ef0a860a83620c9ba673c8313d}} 
+\index{plotter\_2d@{plotter\_2d}!plot\_xlabel@{plot\_xlabel}}
+\index{plot\_xlabel@{plot\_xlabel}!plotter\_2d@{plotter\_2d}}
+\doxysubsubsection{\texorpdfstring{plot\_xlabel}{plot\_xlabel}}
+{\footnotesize\ttfamily plot\+\_\+xlabel = next(\mbox{\hyperlink{namespaceplotter__2d_a41000f175dc0115080e2a682cc06dbe9}{params}})}
+
+
+
+Definition at line \mbox{\hyperlink{population__dynamics__1_2plotter__2d_8py_source_l00013}{13}} of file \mbox{\hyperlink{population__dynamics__1_2plotter__2d_8py_source}{plotter\+\_\+2d.\+py}}.
+
+\mbox{\Hypertarget{namespaceplotter__2d_aaa0f7ac4e6230f68394d5565b50b441e}\label{namespaceplotter__2d_aaa0f7ac4e6230f68394d5565b50b441e}} 
+\index{plotter\_2d@{plotter\_2d}!plot\_xs@{plot\_xs}}
+\index{plot\_xs@{plot\_xs}!plotter\_2d@{plotter\_2d}}
+\doxysubsubsection{\texorpdfstring{plot\_xs}{plot\_xs}}
+{\footnotesize\ttfamily list plot\+\_\+xs = \mbox{[}float(x) for x in next(\mbox{\hyperlink{namespaceplotter__2d_a41000f175dc0115080e2a682cc06dbe9}{params}}).split()\mbox{]}}
+
+
+
+Definition at line \mbox{\hyperlink{population__dynamics__1_2plotter__2d_8py_source_l00015}{15}} of file \mbox{\hyperlink{population__dynamics__1_2plotter__2d_8py_source}{plotter\+\_\+2d.\+py}}.
+
+\mbox{\Hypertarget{namespaceplotter__2d_a59a26a222534766656ec2f42a7880524}\label{namespaceplotter__2d_a59a26a222534766656ec2f42a7880524}} 
+\index{plotter\_2d@{plotter\_2d}!plot\_ylabel@{plot\_ylabel}}
+\index{plot\_ylabel@{plot\_ylabel}!plotter\_2d@{plotter\_2d}}
+\doxysubsubsection{\texorpdfstring{plot\_ylabel}{plot\_ylabel}}
+{\footnotesize\ttfamily plot\+\_\+ylabel = next(\mbox{\hyperlink{namespaceplotter__2d_a41000f175dc0115080e2a682cc06dbe9}{params}})}
+
+
+
+Definition at line \mbox{\hyperlink{population__dynamics__1_2plotter__2d_8py_source_l00014}{14}} of file \mbox{\hyperlink{population__dynamics__1_2plotter__2d_8py_source}{plotter\+\_\+2d.\+py}}.
+
+\mbox{\Hypertarget{namespaceplotter__2d_a1df8fcdacfec00fc258a3c72772c2f18}\label{namespaceplotter__2d_a1df8fcdacfec00fc258a3c72772c2f18}} 
+\index{plotter\_2d@{plotter\_2d}!stability@{stability}}
+\index{stability@{stability}!plotter\_2d@{plotter\_2d}}
+\doxysubsubsection{\texorpdfstring{stability}{stability}}
+{\footnotesize\ttfamily stability = np.\+loadtxt(\char`\"{}stability.\+csv\char`\"{},delimiter=\textquotesingle{},\textquotesingle{},dtype=int)}
+
+
+
+Definition at line \mbox{\hyperlink{population__dynamics__1_2plotter__2d_8py_source_l00005}{5}} of file \mbox{\hyperlink{population__dynamics__1_2plotter__2d_8py_source}{plotter\+\_\+2d.\+py}}.
+

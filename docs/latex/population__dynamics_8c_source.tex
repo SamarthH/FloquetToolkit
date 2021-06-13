@@ -1,0 +1,90 @@
+\hypertarget{population__dynamics_8c_source}{}\doxysection{population\+\_\+dynamics.\+c}
+\label{population__dynamics_8c_source}\index{src/population\_dynamics.c@{src/population\_dynamics.c}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001 }
+\DoxyCodeLine{00002 \textcolor{preprocessor}{\#include <stdio.h>}}
+\DoxyCodeLine{00003 \textcolor{preprocessor}{\#include <gsl/gsl\_math.h>}}
+\DoxyCodeLine{00004 \textcolor{preprocessor}{\#include <math.h>}}
+\DoxyCodeLine{00005 \textcolor{preprocessor}{\#include "\mbox{\hyperlink{floquet_8h}{floquet.h}}"}}
+\DoxyCodeLine{00006 }
+\DoxyCodeLine{00007 \textcolor{keywordtype}{void} print\_int\_matrix\_to\_file\_csv(\textcolor{keywordtype}{int} n1, \textcolor{keywordtype}{int} n2, \textcolor{keywordtype}{int}** m, FILE* file)}
+\DoxyCodeLine{00008 \{}
+\DoxyCodeLine{00009     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < n1; ++i)}
+\DoxyCodeLine{00010     \{}
+\DoxyCodeLine{00011         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} j = 0; j < n2-\/1; ++j)}
+\DoxyCodeLine{00012         \{}
+\DoxyCodeLine{00013             fprintf(file,\textcolor{stringliteral}{"\%d,"},m[i][j]);}
+\DoxyCodeLine{00014         \}}
+\DoxyCodeLine{00015         fprintf(file,\textcolor{stringliteral}{"\%d\(\backslash\)n"},m[i][n2-\/1]);}
+\DoxyCodeLine{00016     \}}
+\DoxyCodeLine{00017 \}}
+\DoxyCodeLine{00018 }
+\DoxyCodeLine{00019 \textcolor{keywordtype}{void} print\_double\_matrix\_to\_file\_csv(\textcolor{keywordtype}{int} n1, \textcolor{keywordtype}{int} n2, \textcolor{keywordtype}{double}** m, FILE* file)}
+\DoxyCodeLine{00020 \{}
+\DoxyCodeLine{00021     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < n1; ++i)}
+\DoxyCodeLine{00022     \{}
+\DoxyCodeLine{00023         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} j = 0; j < n2-\/1; ++j)}
+\DoxyCodeLine{00024         \{}
+\DoxyCodeLine{00025             fprintf(file,\textcolor{stringliteral}{"\%lf,"},m[i][j]);}
+\DoxyCodeLine{00026         \}}
+\DoxyCodeLine{00027         fprintf(file,\textcolor{stringliteral}{"\%lf\(\backslash\)n"},m[i][n2-\/1]);}
+\DoxyCodeLine{00028     \}}
+\DoxyCodeLine{00029 \}}
+\DoxyCodeLine{00030 }
+\DoxyCodeLine{00031 }
+\DoxyCodeLine{00032 \textcolor{keywordtype}{void} fitness\_periodic(\textcolor{keywordtype}{double} t, gsl\_matrix* A\_val, \textcolor{keywordtype}{void}* param)}
+\DoxyCodeLine{00033 \{}
+\DoxyCodeLine{00034     \textcolor{keywordtype}{double} d = *((\textcolor{keywordtype}{double}*) param);}
+\DoxyCodeLine{00035     \textcolor{keywordtype}{double} sint = sin(2.*M\_PI*t);}
+\DoxyCodeLine{00036     gsl\_matrix\_set(A\_val,0,0,sint-\/d);}
+\DoxyCodeLine{00037     gsl\_matrix\_set(A\_val,0,1,d);}
+\DoxyCodeLine{00038     gsl\_matrix\_set(A\_val,1,0,d);}
+\DoxyCodeLine{00039     gsl\_matrix\_set(A\_val,1,1,-\/sint-\/d);}
+\DoxyCodeLine{00040 \}}
+\DoxyCodeLine{00041 }
+\DoxyCodeLine{00042 \textcolor{keywordtype}{int} main()}
+\DoxyCodeLine{00043 \{}
+\DoxyCodeLine{00044     \textcolor{keywordtype}{int} n = 2;}
+\DoxyCodeLine{00045     \textcolor{keywordtype}{double} T = M\_PI;}
+\DoxyCodeLine{00046 }
+\DoxyCodeLine{00047     \textcolor{keywordtype}{double} start = 0.;}
+\DoxyCodeLine{00048     \textcolor{keywordtype}{double} end = 100.;}
+\DoxyCodeLine{00049     \textcolor{keywordtype}{int} nstep = 1024;}
+\DoxyCodeLine{00050     \textcolor{keywordtype}{int}* stability = (\textcolor{keywordtype}{int}*) malloc(nstep*\textcolor{keyword}{sizeof}(\textcolor{keywordtype}{int}));}
+\DoxyCodeLine{00051     gsl\_complex* largest\_multiplier = NULL;}
+\DoxyCodeLine{00052     \textcolor{keywordtype}{double}* largest\_multiplier\_abs = (\textcolor{keywordtype}{double}*) malloc(nstep*\textcolor{keyword}{sizeof}(\textcolor{keywordtype}{double}));}
+\DoxyCodeLine{00053 }
+\DoxyCodeLine{00054     \mbox{\hyperlink{floquet_8h_a689bf8021e6fd204e574d16bfe497b93}{floquet\_get\_stability\_array\_real\_single\_param\_general}}(n, fitness\_periodic, T, start, end, nstep, stability, largest\_multiplier, largest\_multiplier\_abs);}
+\DoxyCodeLine{00055     }
+\DoxyCodeLine{00056     FILE* file = fopen(\textcolor{stringliteral}{"stability.csv"},\textcolor{stringliteral}{"w"});}
+\DoxyCodeLine{00057     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < nstep-\/1; ++i)}
+\DoxyCodeLine{00058     \{}
+\DoxyCodeLine{00059         fprintf(file,\textcolor{stringliteral}{"\%d,"},stability[i]);}
+\DoxyCodeLine{00060     \}}
+\DoxyCodeLine{00061     fprintf(file,\textcolor{stringliteral}{"\%d"},stability[nstep-\/1]);}
+\DoxyCodeLine{00062     fclose(file);}
+\DoxyCodeLine{00063 }
+\DoxyCodeLine{00064     file = fopen(\textcolor{stringliteral}{"largest\_multiplier\_abs.csv"},\textcolor{stringliteral}{"w"});}
+\DoxyCodeLine{00065     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < nstep-\/1; ++i)}
+\DoxyCodeLine{00066     \{}
+\DoxyCodeLine{00067         fprintf(file,\textcolor{stringliteral}{"\%lf,"},largest\_multiplier\_abs[i]);}
+\DoxyCodeLine{00068     \}}
+\DoxyCodeLine{00069     fprintf(file,\textcolor{stringliteral}{"\%lf"},largest\_multiplier\_abs[nstep-\/1]);}
+\DoxyCodeLine{00070     fclose(file);}
+\DoxyCodeLine{00071 }
+\DoxyCodeLine{00072     file = fopen(\textcolor{stringliteral}{"extraparams.txt"},\textcolor{stringliteral}{"w"});}
+\DoxyCodeLine{00073     fprintf(file,\textcolor{stringliteral}{" Dominant Floquet Multiplier as a function of Dispersal rate \$d\$\(\backslash\)n"});}
+\DoxyCodeLine{00074     fprintf(file,\textcolor{stringliteral}{"\$d\$\(\backslash\)n"});}
+\DoxyCodeLine{00075     fprintf(file,\textcolor{stringliteral}{"\$\(\backslash\)\(\backslash\)max(|\(\backslash\)\(\backslash\)rho|)\$\(\backslash\)n"});}
+\DoxyCodeLine{00076     fprintf(file,\textcolor{stringliteral}{"\%lf\(\backslash\)n"},start);}
+\DoxyCodeLine{00077     fprintf(file,\textcolor{stringliteral}{"\%lf\(\backslash\)n"},end);}
+\DoxyCodeLine{00078     fprintf(file,\textcolor{stringliteral}{"\%d\(\backslash\)n"},nstep);}
+\DoxyCodeLine{00079     fclose(file);}
+\DoxyCodeLine{00080 }
+\DoxyCodeLine{00081     free(stability);}
+\DoxyCodeLine{00082     free(largest\_multiplier\_abs);}
+\DoxyCodeLine{00083     \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{00084 \}}
+
+\end{DoxyCode}

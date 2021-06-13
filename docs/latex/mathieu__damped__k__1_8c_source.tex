@@ -1,0 +1,104 @@
+\hypertarget{mathieu__damped__k__1_8c_source}{}\doxysection{mathieu\+\_\+damped\+\_\+k\+\_\+1.\+c}
+\label{mathieu__damped__k__1_8c_source}\index{src/mathieu\_damped\_k\_1.c@{src/mathieu\_damped\_k\_1.c}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001 }
+\DoxyCodeLine{00002 \textcolor{preprocessor}{\#include <stdio.h>}}
+\DoxyCodeLine{00003 \textcolor{preprocessor}{\#include <gsl/gsl\_math.h>}}
+\DoxyCodeLine{00004 \textcolor{preprocessor}{\#include <math.h>}}
+\DoxyCodeLine{00005 \textcolor{preprocessor}{\#include "\mbox{\hyperlink{floquet_8h}{floquet.h}}"}}
+\DoxyCodeLine{00006 }
+\DoxyCodeLine{00007 \textcolor{preprocessor}{\#define K\_DAMP 1.}}
+\DoxyCodeLine{00008 }
+\DoxyCodeLine{00009 \textcolor{keywordtype}{void} print\_int\_matrix\_to\_file\_csv(\textcolor{keywordtype}{int} n1, \textcolor{keywordtype}{int} n2, \textcolor{keywordtype}{int}** m, FILE* file)}
+\DoxyCodeLine{00010 \{}
+\DoxyCodeLine{00011     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < n1; ++i)}
+\DoxyCodeLine{00012     \{}
+\DoxyCodeLine{00013         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} j = 0; j < n2-\/1; ++j)}
+\DoxyCodeLine{00014         \{}
+\DoxyCodeLine{00015             fprintf(file,\textcolor{stringliteral}{"\%d,"},m[i][j]);}
+\DoxyCodeLine{00016         \}}
+\DoxyCodeLine{00017         fprintf(file,\textcolor{stringliteral}{"\%d\(\backslash\)n"},m[i][n2-\/1]);}
+\DoxyCodeLine{00018     \}}
+\DoxyCodeLine{00019 \}}
+\DoxyCodeLine{00020 }
+\DoxyCodeLine{00021 \textcolor{keywordtype}{void} print\_double\_matrix\_to\_file\_csv(\textcolor{keywordtype}{int} n1, \textcolor{keywordtype}{int} n2, \textcolor{keywordtype}{double}** m, FILE* file)}
+\DoxyCodeLine{00022 \{}
+\DoxyCodeLine{00023     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < n1; ++i)}
+\DoxyCodeLine{00024     \{}
+\DoxyCodeLine{00025         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} j = 0; j < n2-\/1; ++j)}
+\DoxyCodeLine{00026         \{}
+\DoxyCodeLine{00027             fprintf(file,\textcolor{stringliteral}{"\%lf,"},m[i][j]);}
+\DoxyCodeLine{00028         \}}
+\DoxyCodeLine{00029         fprintf(file,\textcolor{stringliteral}{"\%lf\(\backslash\)n"},m[i][n2-\/1]);}
+\DoxyCodeLine{00030     \}}
+\DoxyCodeLine{00031 \}}
+\DoxyCodeLine{00032 }
+\DoxyCodeLine{00033 }
+\DoxyCodeLine{00034 \textcolor{keywordtype}{void} mathieu\_undamped(\textcolor{keywordtype}{double} t, gsl\_matrix* A\_val, \textcolor{keywordtype}{void}* param)}
+\DoxyCodeLine{00035 \{}
+\DoxyCodeLine{00036     \textcolor{keywordtype}{double}* par\_temp = (\textcolor{keywordtype}{double}*) param;}
+\DoxyCodeLine{00037     gsl\_matrix\_set\_zero(A\_val);}
+\DoxyCodeLine{00038     gsl\_matrix\_set(A\_val,0,1,1.);}
+\DoxyCodeLine{00039     gsl\_matrix\_set(A\_val,1,0,-\/(par\_temp[1] + par\_temp[0]*cos(2.*t)));}
+\DoxyCodeLine{00040 \}}
+\DoxyCodeLine{00041 }
+\DoxyCodeLine{00042 \textcolor{keywordtype}{void} mathieu\_damped\_fixed\_k(\textcolor{keywordtype}{double} t, gsl\_matrix* A\_val, \textcolor{keywordtype}{void}* param)}
+\DoxyCodeLine{00043 \{}
+\DoxyCodeLine{00044     \textcolor{keywordtype}{double}* par\_temp = (\textcolor{keywordtype}{double}*) param;}
+\DoxyCodeLine{00045     gsl\_matrix\_set\_zero(A\_val);}
+\DoxyCodeLine{00046     gsl\_matrix\_set(A\_val,0,1,1.);}
+\DoxyCodeLine{00047     gsl\_matrix\_set(A\_val,1,0,-\/(par\_temp[1] + par\_temp[0]*cos(2.*t)));}
+\DoxyCodeLine{00048     gsl\_matrix\_set(A\_val,1,1,-\/(K\_DAMP));}
+\DoxyCodeLine{00049 \}}
+\DoxyCodeLine{00050 }
+\DoxyCodeLine{00051 \textcolor{keywordtype}{int} main()}
+\DoxyCodeLine{00052 \{}
+\DoxyCodeLine{00053     \textcolor{keywordtype}{int} n = 2;}
+\DoxyCodeLine{00054     \textcolor{keywordtype}{double} T = M\_PI;}
+\DoxyCodeLine{00055 }
+\DoxyCodeLine{00056     \textcolor{keywordtype}{double} start[2] = \{60.,-\/5.\};}
+\DoxyCodeLine{00057     \textcolor{keywordtype}{double} end[2] = \{0., 20.\};}
+\DoxyCodeLine{00058     \textcolor{keywordtype}{int} nstep[2] = \{320,320\};}
+\DoxyCodeLine{00059     \textcolor{keywordtype}{int}** stability = (\textcolor{keywordtype}{int}**) malloc(nstep[0]*\textcolor{keyword}{sizeof}(\textcolor{keywordtype}{int}*));}
+\DoxyCodeLine{00060     gsl\_complex** largest\_multiplier = NULL;}
+\DoxyCodeLine{00061     \textcolor{keywordtype}{double}** largest\_multiplier\_abs = (\textcolor{keywordtype}{double}**) malloc(nstep[0]*\textcolor{keyword}{sizeof}(\textcolor{keywordtype}{double}*));}
+\DoxyCodeLine{00062 }
+\DoxyCodeLine{00063     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < nstep[0]; ++i)}
+\DoxyCodeLine{00064     \{}
+\DoxyCodeLine{00065         stability[i] = (\textcolor{keywordtype}{int}*) malloc(nstep[1]*\textcolor{keyword}{sizeof}(\textcolor{keywordtype}{int}));}
+\DoxyCodeLine{00066         largest\_multiplier\_abs[i] = (\textcolor{keywordtype}{double}*) malloc(nstep[1]*\textcolor{keyword}{sizeof}(\textcolor{keywordtype}{double}));}
+\DoxyCodeLine{00067     \}}
+\DoxyCodeLine{00068 }
+\DoxyCodeLine{00069 }
+\DoxyCodeLine{00070     \mbox{\hyperlink{floquet_8h_a673ff8696700805393fd28cec169efdd}{floquet\_get\_stability\_array\_real\_double\_param\_general}}(n, mathieu\_damped\_fixed\_k, T, start, end, nstep, stability, largest\_multiplier, largest\_multiplier\_abs);}
+\DoxyCodeLine{00071     }
+\DoxyCodeLine{00072     FILE* file = fopen(\textcolor{stringliteral}{"stability.csv"},\textcolor{stringliteral}{"w"});}
+\DoxyCodeLine{00073     print\_int\_matrix\_to\_file\_csv(nstep[0],nstep[1],stability,file);}
+\DoxyCodeLine{00074     fclose(file);}
+\DoxyCodeLine{00075 }
+\DoxyCodeLine{00076     file = fopen(\textcolor{stringliteral}{"largest\_multiplier\_abs.csv"},\textcolor{stringliteral}{"w"});}
+\DoxyCodeLine{00077     print\_double\_matrix\_to\_file\_csv(nstep[0],nstep[1],largest\_multiplier\_abs,file);}
+\DoxyCodeLine{00078     fclose(file);}
+\DoxyCodeLine{00079 }
+\DoxyCodeLine{00080     file = fopen(\textcolor{stringliteral}{"extraparams.txt"},\textcolor{stringliteral}{"w"});}
+\DoxyCodeLine{00081     fprintf(file,\textcolor{stringliteral}{"Damped Mathieu Stability Plot (\$k=1\$)\(\backslash\)n"});}
+\DoxyCodeLine{00082     fprintf(file,\textcolor{stringliteral}{"\$\(\backslash\)\(\backslash\)delta\$\(\backslash\)n"});}
+\DoxyCodeLine{00083     fprintf(file,\textcolor{stringliteral}{"\$\(\backslash\)\(\backslash\)epsilon\$\(\backslash\)n"});}
+\DoxyCodeLine{00084     fprintf(file,\textcolor{stringliteral}{"\%lf \%lf\(\backslash\)n"},start[0],start[1]);}
+\DoxyCodeLine{00085     fprintf(file,\textcolor{stringliteral}{"\%lf \%lf\(\backslash\)n"},end[0],end[1]);}
+\DoxyCodeLine{00086     fprintf(file,\textcolor{stringliteral}{"\%d \%d\(\backslash\)n"},nstep[0], nstep[1]);}
+\DoxyCodeLine{00087     fclose(file);}
+\DoxyCodeLine{00088     }
+\DoxyCodeLine{00089     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < nstep[0]; ++i)}
+\DoxyCodeLine{00090     \{}
+\DoxyCodeLine{00091         free(stability[i]);}
+\DoxyCodeLine{00092         free(largest\_multiplier\_abs[i]);}
+\DoxyCodeLine{00093     \}}
+\DoxyCodeLine{00094 }
+\DoxyCodeLine{00095     free(stability);}
+\DoxyCodeLine{00096     free(largest\_multiplier\_abs);}
+\DoxyCodeLine{00097     \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{00098 \}}
+
+\end{DoxyCode}

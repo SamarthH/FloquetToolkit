@@ -1,0 +1,23 @@
+\hypertarget{floquet_8h_source}{}\doxysection{floquet.\+h}
+\label{floquet_8h_source}\index{include/floquet.h@{include/floquet.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001 \textcolor{preprocessor}{\#ifndef FLOQUET}}
+\DoxyCodeLine{00003 \textcolor{preprocessor}{\#define FLOQUET}}
+\DoxyCodeLine{00004 }
+\DoxyCodeLine{\Hypertarget{floquet_8h_source_l00005}\mbox{\hyperlink{floquet_8h_a599cd3d87e30c89bc4580e2b979f94fa}{00005}} \textcolor{preprocessor}{\#define ERR\_TOL 1e-\/6 }}
+\DoxyCodeLine{\Hypertarget{floquet_8h_source_l00006}\mbox{\hyperlink{floquet_8h_a38b410ac0b86c8273106ba20ad46a3b2}{00006}} \textcolor{preprocessor}{\#define ERR\_EIGEN\_TOL 1e-\/5 }}
+\DoxyCodeLine{00007 \textcolor{preprocessor}{}}
+\DoxyCodeLine{00008 \textcolor{preprocessor}{\#include "\mbox{\hyperlink{diff_eq_solvers_8h}{diffEqSolvers.h}}"}}
+\DoxyCodeLine{00009 \textcolor{preprocessor}{\#include <gsl/gsl\_eigen.h>}}
+\DoxyCodeLine{00010 \textcolor{preprocessor}{\#include <omp.h>}}
+\DoxyCodeLine{00011 }
+\DoxyCodeLine{00023 \textcolor{keywordtype}{int} \mbox{\hyperlink{floquet_8h_ac44a689f7868e9b4b58d9268e80ccd19}{floquet\_get\_stability\_reals\_general}}(\textcolor{keywordtype}{int} n, \textcolor{keywordtype}{void} (*A)(\textcolor{keywordtype}{double}, gsl\_matrix*, \textcolor{keywordtype}{void}*), \textcolor{keywordtype}{void}* params, \textcolor{keywordtype}{double} T, gsl\_complex* largest\_multiplier, \textcolor{keywordtype}{double}* largest\_multiplier\_abs);}
+\DoxyCodeLine{00024 }
+\DoxyCodeLine{00038 \textcolor{keywordtype}{void} \mbox{\hyperlink{floquet_8h_a689bf8021e6fd204e574d16bfe497b93}{floquet\_get\_stability\_array\_real\_single\_param\_general}}(\textcolor{keywordtype}{int} n, \textcolor{keywordtype}{void} (*A)(\textcolor{keywordtype}{double}, gsl\_matrix*, \textcolor{keywordtype}{void}*), \textcolor{keywordtype}{double} T, \textcolor{keywordtype}{double} start, \textcolor{keywordtype}{double} end, \textcolor{keywordtype}{int} nstep, \textcolor{keywordtype}{int}* stability, gsl\_complex* largest\_multiplier, \textcolor{keywordtype}{double}* largest\_multiplier\_abs);}
+\DoxyCodeLine{00039 }
+\DoxyCodeLine{00053 \textcolor{keywordtype}{void} \mbox{\hyperlink{floquet_8h_a673ff8696700805393fd28cec169efdd}{floquet\_get\_stability\_array\_real\_double\_param\_general}}(\textcolor{keywordtype}{int} n, \textcolor{keywordtype}{void} (*A)(\textcolor{keywordtype}{double}, gsl\_matrix*, \textcolor{keywordtype}{void}*), \textcolor{keywordtype}{double} T, \textcolor{keywordtype}{double}* start, \textcolor{keywordtype}{double}* end, \textcolor{keywordtype}{int}* nstep, \textcolor{keywordtype}{int}** stability, gsl\_complex** largest\_multiplier, \textcolor{keywordtype}{double}** largest\_multiplier\_abs);}
+\DoxyCodeLine{00054 }
+\DoxyCodeLine{00055 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

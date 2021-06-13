@@ -1,0 +1,31 @@
+\hypertarget{population__dynamics__1_2plotter__2d_8py_source}{}\doxysection{plotter\+\_\+2d.\+py}
+\label{population__dynamics__1_2plotter__2d_8py_source}\index{population\_dynamics\_1/plotter\_2d.py@{population\_dynamics\_1/plotter\_2d.py}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001 \textcolor{keyword}{import} matplotlib.pyplot \textcolor{keyword}{as} plt}
+\DoxyCodeLine{00002 \textcolor{keyword}{import} matplotlib.colors \textcolor{keyword}{as} colors}
+\DoxyCodeLine{00003 \textcolor{keyword}{import} numpy \textcolor{keyword}{as} np}
+\DoxyCodeLine{00004 }
+\DoxyCodeLine{00005 stability = np.loadtxt(\textcolor{stringliteral}{"stability.csv"},delimiter=\textcolor{stringliteral}{','},dtype=int)}
+\DoxyCodeLine{00006 largest\_eigen = np.loadtxt(\textcolor{stringliteral}{"largest\_multiplier\_abs.csv"},delimiter=\textcolor{stringliteral}{','},dtype=float)}
+\DoxyCodeLine{00007 }
+\DoxyCodeLine{00008 print(stability)}
+\DoxyCodeLine{00009 print(largest\_eigen.shape)}
+\DoxyCodeLine{00010 }
+\DoxyCodeLine{00011 params = open(\textcolor{stringliteral}{"extraparams.txt"},\textcolor{stringliteral}{'r'})}
+\DoxyCodeLine{00012 plot\_title = next(params)}
+\DoxyCodeLine{00013 plot\_xlabel = next(params)}
+\DoxyCodeLine{00014 plot\_ylabel = next(params)}
+\DoxyCodeLine{00015 plot\_xs = [float(x) \textcolor{keywordflow}{for} x \textcolor{keywordflow}{in} next(params).split()]}
+\DoxyCodeLine{00016 plot\_xe = [float(x) \textcolor{keywordflow}{for} x \textcolor{keywordflow}{in} next(params).split()]}
+\DoxyCodeLine{00017 nstep = int(next(params))}
+\DoxyCodeLine{00018 }
+\DoxyCodeLine{00019 param = np.linspace(plot\_xs,plot\_xe,nstep)}
+\DoxyCodeLine{00020 plt.plot(param,largest\_eigen)}
+\DoxyCodeLine{00021 plt.title(plot\_title)}
+\DoxyCodeLine{00022 plt.xlabel(plot\_xlabel)}
+\DoxyCodeLine{00023 plt.ylabel(plot\_ylabel)}
+\DoxyCodeLine{00024 plt.savefig(\textcolor{stringliteral}{"Largest\_Eigen.png"},dpi=300)}
+\DoxyCodeLine{00025 plt.show()}
+
+\end{DoxyCode}

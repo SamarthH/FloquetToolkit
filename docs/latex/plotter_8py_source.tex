@@ -1,0 +1,45 @@
+\hypertarget{plotter_8py_source}{}\doxysection{plotter.\+py}
+\label{plotter_8py_source}\index{tests/plotter.py@{tests/plotter.py}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{plotter_8py_source_l00001}\mbox{\hyperlink{namespaceplotter}{00001}} \textcolor{keyword}{import} matplotlib.pyplot \textcolor{keyword}{as} plt}
+\DoxyCodeLine{00002 \textcolor{keyword}{import} matplotlib.colors \textcolor{keyword}{as} colors}
+\DoxyCodeLine{00003 \textcolor{keyword}{import} numpy \textcolor{keyword}{as} np}
+\DoxyCodeLine{00004 }
+\DoxyCodeLine{\Hypertarget{plotter_8py_source_l00005}\mbox{\hyperlink{namespaceplotter_a1df8fcdacfec00fc258a3c72772c2f18}{00005}} stability = np.loadtxt(\textcolor{stringliteral}{"stability.csv"},delimiter=\textcolor{stringliteral}{','},dtype=int)}
+\DoxyCodeLine{\Hypertarget{plotter_8py_source_l00006}\mbox{\hyperlink{namespaceplotter_a945fec2eec92b87dcd78ba3d2c6eea0d}{00006}} largest\_eigen = np.loadtxt(\textcolor{stringliteral}{"largest\_multiplier\_abs.csv"},delimiter=\textcolor{stringliteral}{','},dtype=float)}
+\DoxyCodeLine{00007 }
+\DoxyCodeLine{00008 print(stability)}
+\DoxyCodeLine{00009 print(largest\_eigen.shape)}
+\DoxyCodeLine{00010 }
+\DoxyCodeLine{\Hypertarget{plotter_8py_source_l00011}\mbox{\hyperlink{namespaceplotter_a41000f175dc0115080e2a682cc06dbe9}{00011}} params = open(\textcolor{stringliteral}{"extraparams.txt"},\textcolor{stringliteral}{'r'})}
+\DoxyCodeLine{\Hypertarget{plotter_8py_source_l00012}\mbox{\hyperlink{namespaceplotter_a2d247890afaaa65db9e7f3884bc88dc2}{00012}} plot\_title = next(params)}
+\DoxyCodeLine{\Hypertarget{plotter_8py_source_l00013}\mbox{\hyperlink{namespaceplotter_a250828ef0a860a83620c9ba673c8313d}{00013}} plot\_xlabel = next(params)}
+\DoxyCodeLine{\Hypertarget{plotter_8py_source_l00014}\mbox{\hyperlink{namespaceplotter_a59a26a222534766656ec2f42a7880524}{00014}} plot\_ylabel = next(params)}
+\DoxyCodeLine{\Hypertarget{plotter_8py_source_l00015}\mbox{\hyperlink{namespaceplotter_aee1034d15d45e33423370d17b12171ea}{00015}} plot\_ye, plot\_xs = [float(x) \textcolor{keywordflow}{for} x \textcolor{keywordflow}{in} next(params).split()]}
+\DoxyCodeLine{\Hypertarget{plotter_8py_source_l00016}\mbox{\hyperlink{namespaceplotter_abca4511a5ad93e7ed56029f3b4c7fff8}{00016}} plot\_ys, plot\_xe = [float(x) \textcolor{keywordflow}{for} x \textcolor{keywordflow}{in} next(params).split()]}
+\DoxyCodeLine{00017 }
+\DoxyCodeLine{\Hypertarget{plotter_8py_source_l00018}\mbox{\hyperlink{namespaceplotter_a102d36da59b61d6f3d1edc27fc82cc2d}{00018}} plt.rc(\textcolor{stringliteral}{'text'}, usetex=\textcolor{keyword}{True})}
+\DoxyCodeLine{\Hypertarget{plotter_8py_source_l00019}\mbox{\hyperlink{namespaceplotter_ac665b11c6b884a502a988db8fd686796}{00019}} plt.rc(\textcolor{stringliteral}{'font'}, family=\textcolor{stringliteral}{'serif'})}
+\DoxyCodeLine{\Hypertarget{plotter_8py_source_l00020}\mbox{\hyperlink{namespaceplotter_a64aa603bc3c6c1587e7c6542452481ac}{00020}} fig,ax = plt.subplots(1,1)}
+\DoxyCodeLine{\Hypertarget{plotter_8py_source_l00021}\mbox{\hyperlink{namespaceplotter_ad0e5f55e3c0a06964a25a922047c023c}{00021}} cp = ax.imshow(stability, extent = [plot\_xs, plot\_xe, plot\_ys, plot\_ye], cmap=\textcolor{stringliteral}{'gray'})}
+\DoxyCodeLine{00022 fig.colorbar(cp)}
+\DoxyCodeLine{00023 plt.title(plot\_title)}
+\DoxyCodeLine{00024 plt.xlabel(plot\_xlabel)}
+\DoxyCodeLine{00025 plt.ylabel(plot\_ylabel)}
+\DoxyCodeLine{00026 ax.set\_aspect(\textcolor{stringliteral}{'auto'})}
+\DoxyCodeLine{\Hypertarget{plotter_8py_source_l00027}\mbox{\hyperlink{namespaceplotter_ab4024db5b48e2ddd9bcd43847f10f016}{00027}} plt.savefig(\textcolor{stringliteral}{"Stability.png"},dpi=300)}
+\DoxyCodeLine{00028 plt.show()}
+\DoxyCodeLine{00029 }
+\DoxyCodeLine{00030 }
+\DoxyCodeLine{00031 fig,ax = plt.subplots(1,1)}
+\DoxyCodeLine{00032 cp = ax.imshow(largest\_eigen-\/1., extent = [plot\_xs, plot\_xe, plot\_ys, plot\_ye], cmap=\textcolor{stringliteral}{'gray'}, norm=colors.SymLogNorm(1e-\/3,base=10)) \textcolor{comment}{\#vmin = min(np.min(largest\_eigen),0.00001),}}
+\DoxyCodeLine{00033 fig.colorbar(cp)}
+\DoxyCodeLine{00034 plt.title(plot\_title + \textcolor{stringliteral}{r" (Plotting \$\(\backslash\)rho\_\{max\}-\/1\$)"})}
+\DoxyCodeLine{00035 plt.xlabel(plot\_xlabel)}
+\DoxyCodeLine{00036 plt.ylabel(plot\_ylabel)}
+\DoxyCodeLine{00037 ax.set\_aspect(\textcolor{stringliteral}{'auto'})}
+\DoxyCodeLine{00038 plt.savefig(\textcolor{stringliteral}{"Largest\_Eigen.png"},dpi=300)}
+\DoxyCodeLine{00039 plt.show()}
+
+\end{DoxyCode}

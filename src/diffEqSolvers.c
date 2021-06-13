@@ -1,3 +1,4 @@
+/*! \file */ 
 #include "diffEqSolvers.h"
 
 void __rk4_single_vector(int n, double* x, double t, double h, void (*evol_func)(double*, double, double*, void*), double* x_f, void* params)
@@ -340,6 +341,7 @@ void __midpoint_method(gsl_matrix* x, double t_i, double H, double h, void (*A)(
 
 	A(t+h_2,eval,params);
 	gsl_blas_dgemm(CblasNoTrans,CblasNoTrans,h,eval,y,1.,x_f);
+	
 	t+=h;
 
 	while(t<t_f)
@@ -362,7 +364,7 @@ void __midpoint_method(gsl_matrix* x, double t_i, double H, double h, void (*A)(
 
 double __bulsto_final_matrix_floquet_type_real_main(gsl_matrix* x_i, double t_i, double H, double delta, void (*A)(double, gsl_matrix*, void*), gsl_matrix* x_f, void* params, gsl_matrix* y, gsl_matrix* eval, gsl_matrix** R1, gsl_matrix** R2, gsl_matrix* epsilon)
 {
-	int ndim = x_i->size1;
+	//int ndim = x_i->size1;
 	
 
 	//printf("0 ERR %e %e %e %e\n", gsl_matrix_get(x_i,0,0), gsl_matrix_get(x_i,0,1), gsl_matrix_get(x_i,1,0), gsl_matrix_get(x_i,1,1));
@@ -370,7 +372,7 @@ double __bulsto_final_matrix_floquet_type_real_main(gsl_matrix* x_i, double t_i,
 	int n = 1;
 	double h = H;
 	__midpoint_method(x_i, t_i, H, h, A, R1[0], params, y, eval);
-	double error = 2*H*delta;
+	double error = HUGE_VAL;
 
 	gsl_matrix** temp;
 

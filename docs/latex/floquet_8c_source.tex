@@ -1,0 +1,175 @@
+\hypertarget{floquet_8c_source}{}\doxysection{floquet.\+c}
+\label{floquet_8c_source}\index{src/floquet.c@{src/floquet.c}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001 }
+\DoxyCodeLine{00002 \textcolor{preprocessor}{\#include "\mbox{\hyperlink{floquet_8h}{floquet.h}}"}}
+\DoxyCodeLine{00003 }
+\DoxyCodeLine{\Hypertarget{floquet_8c_source_l00004}\mbox{\hyperlink{floquet_8c_ac44a689f7868e9b4b58d9268e80ccd19}{00004}} \textcolor{keywordtype}{int} \mbox{\hyperlink{floquet_8c_ac44a689f7868e9b4b58d9268e80ccd19}{floquet\_get\_stability\_reals\_general}}(\textcolor{keywordtype}{int} n, \textcolor{keywordtype}{void} (*A)(\textcolor{keywordtype}{double}, gsl\_matrix*, \textcolor{keywordtype}{void}*), \textcolor{keywordtype}{void}* params, \textcolor{keywordtype}{double} T, gsl\_complex* largest\_multiplier, \textcolor{keywordtype}{double}* largest\_multiplier\_abs)}
+\DoxyCodeLine{00005 \{}
+\DoxyCodeLine{00006     gsl\_matrix* X = gsl\_matrix\_alloc(n,n);}
+\DoxyCodeLine{00007     gsl\_matrix\_set\_identity(X);}
+\DoxyCodeLine{00008 }
+\DoxyCodeLine{00009     gsl\_matrix* B = gsl\_matrix\_alloc(n,n);}
+\DoxyCodeLine{00010     \mbox{\hyperlink{diff_eq_solvers_8h_ac838e3f0db14582b9d166666a4376bd3}{bulsto\_final\_matrix\_floquet\_type\_real}}(X, 0., T, \mbox{\hyperlink{floquet_8h_a599cd3d87e30c89bc4580e2b979f94fa}{ERR\_TOL}}, A, B, params);}
+\DoxyCodeLine{00011 }
+\DoxyCodeLine{00012     gsl\_vector\_complex* eigenvals = gsl\_vector\_complex\_alloc(n);}
+\DoxyCodeLine{00013 }
+\DoxyCodeLine{00014     gsl\_eigen\_nonsymm\_workspace* w = gsl\_eigen\_nonsymm\_alloc(n);}
+\DoxyCodeLine{00015 }
+\DoxyCodeLine{00016     \textcolor{keywordtype}{int} n\_eigenvals\_evaluated = n;}
+\DoxyCodeLine{00017     }
+\DoxyCodeLine{00018     \textcolor{keywordtype}{int} err\_code = gsl\_eigen\_nonsymm(B,eigenvals,w);}
+\DoxyCodeLine{00019     \textcolor{keywordflow}{if}(err\_code)}
+\DoxyCodeLine{00020     \{}
+\DoxyCodeLine{00021         n\_eigenvals\_evaluated = w-\/>n\_evals;}
+\DoxyCodeLine{00022     \}}
+\DoxyCodeLine{00023 }
+\DoxyCodeLine{00024     \textcolor{keywordtype}{double} mult\_max\_abs = -\/HUGE\_VAL;}
+\DoxyCodeLine{00025     gsl\_complex mult\_max;}
+\DoxyCodeLine{00026     \textcolor{keywordtype}{double} ev\_test;}
+\DoxyCodeLine{00027     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < n\_eigenvals\_evaluated; ++i)}
+\DoxyCodeLine{00028     \{}
+\DoxyCodeLine{00029         ev\_test = gsl\_complex\_logabs(gsl\_vector\_complex\_get(eigenvals,i));}
+\DoxyCodeLine{00030         \textcolor{keywordflow}{if} (mult\_max\_abs < ev\_test)}
+\DoxyCodeLine{00031         \{}
+\DoxyCodeLine{00032             mult\_max\_abs = ev\_test;}
+\DoxyCodeLine{00033             mult\_max = gsl\_vector\_complex\_get(eigenvals,i);}
+\DoxyCodeLine{00034         \}}
+\DoxyCodeLine{00035     \}}
+\DoxyCodeLine{00036 }
+\DoxyCodeLine{00037     \textcolor{keywordflow}{if} (largest\_multiplier != NULL)}
+\DoxyCodeLine{00038     \{}
+\DoxyCodeLine{00039         *largest\_multiplier = mult\_max;}
+\DoxyCodeLine{00040     \}}
+\DoxyCodeLine{00041     \textcolor{keywordflow}{if} (largest\_multiplier\_abs != NULL)}
+\DoxyCodeLine{00042     \{}
+\DoxyCodeLine{00043         *largest\_multiplier\_abs = gsl\_complex\_abs(mult\_max);}
+\DoxyCodeLine{00044     \}}
+\DoxyCodeLine{00045 }
+\DoxyCodeLine{00046     gsl\_eigen\_nonsymm\_free(w);}
+\DoxyCodeLine{00047     gsl\_vector\_complex\_free(eigenvals);}
+\DoxyCodeLine{00048     gsl\_matrix\_free(B);}
+\DoxyCodeLine{00049     gsl\_matrix\_free(X);}
+\DoxyCodeLine{00050 }
+\DoxyCodeLine{00051     \textcolor{keywordflow}{if} (mult\_max\_abs > \mbox{\hyperlink{floquet_8h_a38b410ac0b86c8273106ba20ad46a3b2}{ERR\_EIGEN\_TOL}})}
+\DoxyCodeLine{00052     \{}
+\DoxyCodeLine{00053         \textcolor{keywordflow}{return} 1;}
+\DoxyCodeLine{00054     \}}
+\DoxyCodeLine{00055     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (mult\_max\_abs < (-\/\mbox{\hyperlink{floquet_8h_a38b410ac0b86c8273106ba20ad46a3b2}{ERR\_EIGEN\_TOL}}))}
+\DoxyCodeLine{00056     \{}
+\DoxyCodeLine{00057         \textcolor{keywordflow}{if} (n\_eigenvals\_evaluated < n)}
+\DoxyCodeLine{00058         \{}
+\DoxyCodeLine{00059             \textcolor{keywordflow}{return} 2;}
+\DoxyCodeLine{00060         \}}
+\DoxyCodeLine{00061         \textcolor{keywordflow}{return} -\/1;}
+\DoxyCodeLine{00062     \}}
+\DoxyCodeLine{00063     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00064     \{}
+\DoxyCodeLine{00065         \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{00066     \}}
+\DoxyCodeLine{00067 \}}
+\DoxyCodeLine{00068 }
+\DoxyCodeLine{\Hypertarget{floquet_8c_source_l00069}\mbox{\hyperlink{floquet_8c_a689bf8021e6fd204e574d16bfe497b93}{00069}} \textcolor{keywordtype}{void} \mbox{\hyperlink{floquet_8c_a689bf8021e6fd204e574d16bfe497b93}{floquet\_get\_stability\_array\_real\_single\_param\_general}}(\textcolor{keywordtype}{int} n, \textcolor{keywordtype}{void} (*A)(\textcolor{keywordtype}{double}, gsl\_matrix*, \textcolor{keywordtype}{void}*), \textcolor{keywordtype}{double} T, \textcolor{keywordtype}{double} start, \textcolor{keywordtype}{double} end, \textcolor{keywordtype}{int} nstep, \textcolor{keywordtype}{int}* stability, gsl\_complex* largest\_multiplier, \textcolor{keywordtype}{double}* largest\_multiplier\_abs)}
+\DoxyCodeLine{00070 \{}
+\DoxyCodeLine{00071     gsl\_complex* mult\_temp;}
+\DoxyCodeLine{00072     \textcolor{keywordtype}{double}* mult\_abs\_temp;}
+\DoxyCodeLine{00073 }
+\DoxyCodeLine{00074     \textcolor{keywordflow}{if} (largest\_multiplier)}
+\DoxyCodeLine{00075     \{}
+\DoxyCodeLine{00076         mult\_temp = largest\_multiplier;}
+\DoxyCodeLine{00077     \}}
+\DoxyCodeLine{00078     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00079     \{}
+\DoxyCodeLine{00080         mult\_temp = (gsl\_complex*) malloc(nstep*\textcolor{keyword}{sizeof}(gsl\_complex));}
+\DoxyCodeLine{00081     \}}
+\DoxyCodeLine{00082 }
+\DoxyCodeLine{00083     \textcolor{keywordflow}{if} (largest\_multiplier\_abs)}
+\DoxyCodeLine{00084     \{}
+\DoxyCodeLine{00085         mult\_abs\_temp = largest\_multiplier\_abs;}
+\DoxyCodeLine{00086     \}}
+\DoxyCodeLine{00087     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00088     \{}
+\DoxyCodeLine{00089         mult\_abs\_temp = (\textcolor{keywordtype}{double}*) malloc(nstep*\textcolor{keyword}{sizeof}(\textcolor{keywordtype}{double}));}
+\DoxyCodeLine{00090     \}}
+\DoxyCodeLine{00091 }
+\DoxyCodeLine{00092     \textcolor{keywordtype}{double} step = (end-\/start)/(nstep-\/1);}
+\DoxyCodeLine{00093 \textcolor{preprocessor}{    \#pragma omp parallel for}}
+\DoxyCodeLine{00094     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < nstep; ++i)}
+\DoxyCodeLine{00095     \{}
+\DoxyCodeLine{00096         \textcolor{keywordtype}{double} param = start + step*i;}
+\DoxyCodeLine{00097         stability[i] = \mbox{\hyperlink{floquet_8c_ac44a689f7868e9b4b58d9268e80ccd19}{floquet\_get\_stability\_reals\_general}}(n,A,\&param,T,mult\_temp+i,mult\_abs\_temp+i);}
+\DoxyCodeLine{00098     \}}
+\DoxyCodeLine{00099 }
+\DoxyCodeLine{00100     \textcolor{keywordflow}{if}(!largest\_multiplier)}
+\DoxyCodeLine{00101     \{}
+\DoxyCodeLine{00102         free(mult\_temp);}
+\DoxyCodeLine{00103     \}}
+\DoxyCodeLine{00104     \textcolor{keywordflow}{if}(!largest\_multiplier\_abs)}
+\DoxyCodeLine{00105     \{}
+\DoxyCodeLine{00106         free(mult\_abs\_temp);}
+\DoxyCodeLine{00107     \}}
+\DoxyCodeLine{00108 \}}
+\DoxyCodeLine{00109 }
+\DoxyCodeLine{\Hypertarget{floquet_8c_source_l00110}\mbox{\hyperlink{floquet_8c_a673ff8696700805393fd28cec169efdd}{00110}} \textcolor{keywordtype}{void} \mbox{\hyperlink{floquet_8c_a673ff8696700805393fd28cec169efdd}{floquet\_get\_stability\_array\_real\_double\_param\_general}}(\textcolor{keywordtype}{int} n, \textcolor{keywordtype}{void} (*A)(\textcolor{keywordtype}{double}, gsl\_matrix*, \textcolor{keywordtype}{void}*), \textcolor{keywordtype}{double} T, \textcolor{keywordtype}{double}* start, \textcolor{keywordtype}{double}* end, \textcolor{keywordtype}{int}* nstep, \textcolor{keywordtype}{int}** stability, gsl\_complex** largest\_multiplier, \textcolor{keywordtype}{double}** largest\_multiplier\_abs)}
+\DoxyCodeLine{00111 \{}
+\DoxyCodeLine{00112     gsl\_complex** mult\_temp;}
+\DoxyCodeLine{00113     \textcolor{keywordtype}{double}** mult\_abs\_temp;}
+\DoxyCodeLine{00114 }
+\DoxyCodeLine{00115     \textcolor{keywordflow}{if} (largest\_multiplier)}
+\DoxyCodeLine{00116     \{}
+\DoxyCodeLine{00117         mult\_temp = largest\_multiplier;}
+\DoxyCodeLine{00118     \}}
+\DoxyCodeLine{00119     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00120     \{}
+\DoxyCodeLine{00121         mult\_temp = (gsl\_complex**) malloc(nstep[0]*\textcolor{keyword}{sizeof}(gsl\_complex*));}
+\DoxyCodeLine{00122         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < nstep[0]; ++i)}
+\DoxyCodeLine{00123         \{}
+\DoxyCodeLine{00124             mult\_temp[i] = (gsl\_complex*) malloc(nstep[1]*\textcolor{keyword}{sizeof}(gsl\_complex));}
+\DoxyCodeLine{00125         \}}
+\DoxyCodeLine{00126     \}}
+\DoxyCodeLine{00127 }
+\DoxyCodeLine{00128     \textcolor{keywordflow}{if} (largest\_multiplier\_abs)}
+\DoxyCodeLine{00129     \{}
+\DoxyCodeLine{00130         mult\_abs\_temp = largest\_multiplier\_abs;}
+\DoxyCodeLine{00131     \}}
+\DoxyCodeLine{00132     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00133     \{}
+\DoxyCodeLine{00134         mult\_abs\_temp = (\textcolor{keywordtype}{double}**) malloc(nstep[0]*\textcolor{keyword}{sizeof}(\textcolor{keywordtype}{double}*));}
+\DoxyCodeLine{00135         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < nstep[0]; ++i)}
+\DoxyCodeLine{00136         \{}
+\DoxyCodeLine{00137             mult\_abs\_temp[i] = (\textcolor{keywordtype}{double}*) malloc(nstep[1]*\textcolor{keyword}{sizeof}(\textcolor{keywordtype}{double}));}
+\DoxyCodeLine{00138         \}}
+\DoxyCodeLine{00139     \}}
+\DoxyCodeLine{00140 }
+\DoxyCodeLine{00141     \textcolor{keywordtype}{double} step[2] = \{(end[0]-\/start[0])/(nstep[0]-\/1), (end[1]-\/start[1])/(nstep[1]-\/1)\};}
+\DoxyCodeLine{00142 \textcolor{preprocessor}{    \#pragma omp parallel for collapse(2) schedule(guided)}}
+\DoxyCodeLine{00143     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < nstep[0]; ++i)}
+\DoxyCodeLine{00144     \{}
+\DoxyCodeLine{00145         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} j = 0; j < nstep[1]; ++j)}
+\DoxyCodeLine{00146         \{}
+\DoxyCodeLine{00147             \textcolor{keywordtype}{double} param[2] = \{start[0] + step[0]*i, start[1] + step[1]*j \};}
+\DoxyCodeLine{00148             stability[i][j] = \mbox{\hyperlink{floquet_8c_ac44a689f7868e9b4b58d9268e80ccd19}{floquet\_get\_stability\_reals\_general}}(n,A,param,T,\&mult\_temp[i][j],\&mult\_abs\_temp[i][j]);}
+\DoxyCodeLine{00149         \}}
+\DoxyCodeLine{00150     \}}
+\DoxyCodeLine{00151 }
+\DoxyCodeLine{00152     \textcolor{keywordflow}{if}(!largest\_multiplier)}
+\DoxyCodeLine{00153     \{}
+\DoxyCodeLine{00154         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < nstep[0]; ++i)}
+\DoxyCodeLine{00155         \{}
+\DoxyCodeLine{00156             free(mult\_temp[i]);}
+\DoxyCodeLine{00157         \}}
+\DoxyCodeLine{00158         free(mult\_temp);}
+\DoxyCodeLine{00159     \}}
+\DoxyCodeLine{00160 }
+\DoxyCodeLine{00161     \textcolor{keywordflow}{if}(!largest\_multiplier\_abs)}
+\DoxyCodeLine{00162     \{}
+\DoxyCodeLine{00163         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < nstep[0]; ++i)}
+\DoxyCodeLine{00164         \{}
+\DoxyCodeLine{00165             free(mult\_abs\_temp[i]);}
+\DoxyCodeLine{00166         \}}
+\DoxyCodeLine{00167         free(mult\_abs\_temp);}
+\DoxyCodeLine{00168     \}}
+\DoxyCodeLine{00169 \}}
+
+\end{DoxyCode}

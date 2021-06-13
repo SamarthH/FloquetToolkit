@@ -1,0 +1,6 @@
+Undamped Mathieu Stability Plot
+$\delta$
+$\epsilon$
+60.000000 -5.000000
+0.000000 20.000000
+320 320

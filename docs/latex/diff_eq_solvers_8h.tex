@@ -1,0 +1,557 @@
+\hypertarget{diff_eq_solvers_8h}{}\doxysection{include/diff\+Eq\+Solvers.h File Reference}
+\label{diff_eq_solvers_8h}\index{include/diffEqSolvers.h@{include/diffEqSolvers.h}}
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$math.\+h$>$}\newline
+{\ttfamily \#include $<$gsl/gsl\+\_\+math.\+h$>$}\newline
+{\ttfamily \#include $<$gsl/gsl\+\_\+cblas.\+h$>$}\newline
+{\ttfamily \#include $<$gsl/gsl\+\_\+matrix.\+h$>$}\newline
+{\ttfamily \#include $<$gsl/gsl\+\_\+blas.\+h$>$}\newline
+{\ttfamily \#include $<$gsl/gsl\+\_\+complex.\+h$>$}\newline
+{\ttfamily \#include $<$gsl/gsl\+\_\+complex\+\_\+math.\+h$>$}\newline
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{diff_eq_solvers_8h_a09f6b3f804ed006f45f3c04a0342331f}\label{diff_eq_solvers_8h_a09f6b3f804ed006f45f3c04a0342331f}} 
+\#define {\bfseries G\+S\+L\+\_\+\+R\+A\+N\+G\+E\+\_\+\+C\+H\+E\+C\+K\+\_\+\+O\+FF}
+\item 
+\mbox{\Hypertarget{diff_eq_solvers_8h_aa04d236e05d6a2163ce4a19d0863b8c8}\label{diff_eq_solvers_8h_aa04d236e05d6a2163ce4a19d0863b8c8}} 
+\#define {\bfseries H\+A\+V\+E\+\_\+\+I\+N\+L\+I\+NE}
+\item 
+\mbox{\Hypertarget{diff_eq_solvers_8h_a10d7167d35b910efded6a1c6e8261164}\label{diff_eq_solvers_8h_a10d7167d35b910efded6a1c6e8261164}} 
+\#define {\bfseries R\+K4\+\_\+\+M\+A\+X\+\_\+\+S\+C\+A\+LE}~5
+\item 
+\mbox{\Hypertarget{diff_eq_solvers_8h_adc6efd7c149e527d5ee888522c4473eb}\label{diff_eq_solvers_8h_adc6efd7c149e527d5ee888522c4473eb}} 
+\#define {\bfseries R\+K4\+\_\+\+M\+I\+N\+\_\+\+S\+C\+A\+LE}~0.\+2
+\item 
+\mbox{\Hypertarget{diff_eq_solvers_8h_a489d6651b32ee531e15b07104bd9c90a}\label{diff_eq_solvers_8h_a489d6651b32ee531e15b07104bd9c90a}} 
+\#define {\bfseries R\+K4\+\_\+\+M\+A\+X\+\_\+\+S\+L\+I\+C\+ES}~1e8
+\item 
+\mbox{\Hypertarget{diff_eq_solvers_8h_ab101eeff378a7dedd4d59682edecc543}\label{diff_eq_solvers_8h_ab101eeff378a7dedd4d59682edecc543}} 
+\#define \mbox{\hyperlink{diff_eq_solvers_8h_ab101eeff378a7dedd4d59682edecc543}{B\+U\+L\+S\+T\+O\+\_\+\+S\+T\+E\+P\+\_\+\+M\+AX}}~16
+\begin{DoxyCompactList}\small\item\em Maximum number of midpoint method evaluations in one instance of Bulirsch-\/\+Stoer Method. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{diff_eq_solvers_8h_a0995a28e4db94db117ab6f97514d3bd8}\label{diff_eq_solvers_8h_a0995a28e4db94db117ab6f97514d3bd8}} 
+\#define \mbox{\hyperlink{diff_eq_solvers_8h_a0995a28e4db94db117ab6f97514d3bd8}{B\+U\+L\+S\+T\+O\+\_\+\+M\+A\+X\+\_\+\+L\+A\+Y\+E\+RS}}~32
+\begin{DoxyCompactList}\small\item\em Maximum depth of halving of Bulirsch-\/\+Stoer Method (this means that $ H_{min} = 2^{-32}H $) \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{diff_eq_solvers_8h_a80410c381d45db2a6b3e6fb457b4763e}{rk4\+\_\+fixed\+\_\+final\+\_\+vector\+\_\+real}} (int ndim, double $\ast$x\+\_\+i, double t\+\_\+i, double H, double h, void($\ast$evol\+\_\+func)(double $\ast$, double, double $\ast$, void $\ast$), double $\ast$x\+\_\+f, void $\ast$params)
+\begin{DoxyCompactList}\small\item\em Fixed Step R\+K4 for vectors for general $ \dot{x} = f_\lambda(x,t) $. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{diff_eq_solvers_8h_adea071b2e50926df1b1e49b4ede2006d}{rk4\+\_\+fixed\+\_\+final\+\_\+matrix\+\_\+floquet\+\_\+type\+\_\+real}} (gsl\+\_\+matrix $\ast$x\+\_\+i, double t\+\_\+i, double H, double h, void($\ast$A)(double, gsl\+\_\+matrix $\ast$, void $\ast$), gsl\+\_\+matrix $\ast$x\+\_\+f, void $\ast$params)
+\begin{DoxyCompactList}\small\item\em Fixed Step R\+K4 for real matrices for evolution of the form $ \dot{X} = A_\lambda(t)X $. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{diff_eq_solvers_8h_ad579183a7a1c86772d12696e198bfcf4}{rk4\+\_\+fixed\+\_\+final\+\_\+matrix\+\_\+floquet\+\_\+type\+\_\+complex}} (gsl\+\_\+matrix\+\_\+complex $\ast$x\+\_\+i, double t\+\_\+i, double H, double h, void($\ast$A)(double, gsl\+\_\+matrix\+\_\+complex $\ast$, void $\ast$), gsl\+\_\+matrix\+\_\+complex $\ast$x\+\_\+f, void $\ast$params)
+\begin{DoxyCompactList}\small\item\em Fixed Step R\+K4 for complex matrices for evolution of the form $ \dot{X} = A_\lambda(t)X $. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{diff_eq_solvers_8h_a857b28cb9668e1433ba7f7322000d4b5}{rk4\+\_\+adaptive\+\_\+final\+\_\+matrix\+\_\+floquet\+\_\+type\+\_\+real}} (gsl\+\_\+matrix $\ast$x\+\_\+i, double t\+\_\+i, double H, double delta, void($\ast$A)(double, gsl\+\_\+matrix $\ast$, void $\ast$), gsl\+\_\+matrix $\ast$x\+\_\+f, void $\ast$params)
+\begin{DoxyCompactList}\small\item\em Adaptive Step R\+K4 for real matrices for evolution of the form $ \dot{X} = A_\lambda(t)X $. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{diff_eq_solvers_8h_ac838e3f0db14582b9d166666a4376bd3}{bulsto\+\_\+final\+\_\+matrix\+\_\+floquet\+\_\+type\+\_\+real}} (gsl\+\_\+matrix $\ast$x\+\_\+i, double t\+\_\+i, double H, double delta, void($\ast$A)(double, gsl\+\_\+matrix $\ast$, void $\ast$), gsl\+\_\+matrix $\ast$x\+\_\+f, void $\ast$params)
+\begin{DoxyCompactList}\small\item\em Bulirsch-\/\+Stoer Method for real matrices for evolution of the form $ \dot{X} = A_\lambda(t)X $. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{diff_eq_solvers_8h_ac838e3f0db14582b9d166666a4376bd3}\label{diff_eq_solvers_8h_ac838e3f0db14582b9d166666a4376bd3}} 
+\index{diffEqSolvers.h@{diffEqSolvers.h}!bulsto\_final\_matrix\_floquet\_type\_real@{bulsto\_final\_matrix\_floquet\_type\_real}}
+\index{bulsto\_final\_matrix\_floquet\_type\_real@{bulsto\_final\_matrix\_floquet\_type\_real}!diffEqSolvers.h@{diffEqSolvers.h}}
+\doxysubsubsection{\texorpdfstring{bulsto\_final\_matrix\_floquet\_type\_real()}{bulsto\_final\_matrix\_floquet\_type\_real()}}
+{\footnotesize\ttfamily void bulsto\+\_\+final\+\_\+matrix\+\_\+floquet\+\_\+type\+\_\+real (\begin{DoxyParamCaption}\item[{gsl\+\_\+matrix $\ast$}]{x\+\_\+i,  }\item[{double}]{t\+\_\+i,  }\item[{double}]{H,  }\item[{double}]{delta,  }\item[{void($\ast$)(double, gsl\+\_\+matrix $\ast$, void $\ast$)}]{A,  }\item[{gsl\+\_\+matrix $\ast$}]{x\+\_\+f,  }\item[{void $\ast$}]{params }\end{DoxyParamCaption})}
+
+
+
+Bulirsch-\/\+Stoer Method for real matrices for evolution of the form $ \dot{X} = A_\lambda(t)X $. 
+
+Implemented according to Computational Physics, Mark Newman (2013) 
+\begin{DoxyParams}{Parameters}
+{\em x\+\_\+i} & Initial Matrix $ x_i \in \mathbb{R}^{n\cross m} $ \\
+\hline
+{\em t\+\_\+i} & Time when x\+\_\+i is specified \\
+\hline
+{\em H} & Interval after which final x is required \\
+\hline
+{\em delta} & Maximum error allowed per unit time (The error is taken to be the maximum of the error of each element of the matrix) \\
+\hline
+{\em evol\+\_\+func} & Function that computes $ A_\lambda(t) $. The function should be of the form void A(double t, gsl\+\_\+matrix$\ast$ out, void$\ast$ params) \\
+\hline
+{\em x\+\_\+f} & Array to store the final x into. This should be preallocated \\
+\hline
+{\em params} & Parameters to be passed to A(t) \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{diff_eq_solvers_8c_source_l00430}{430}} of file \mbox{\hyperlink{diff_eq_solvers_8c_source}{diff\+Eq\+Solvers.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00431 \{}
+\DoxyCodeLine{00432     \textcolor{comment}{// This program only initializes and provides and frees temp variables}}
+\DoxyCodeLine{00433     \textcolor{keywordtype}{int} ndim = x\_i-\/>size1;}
+\DoxyCodeLine{00434     gsl\_matrix** R1 = (gsl\_matrix**) malloc((\mbox{\hyperlink{diff_eq_solvers_8h_ab101eeff378a7dedd4d59682edecc543}{BULSTO\_STEP\_MAX}}+1)*\textcolor{keyword}{sizeof}(gsl\_matrix*));}
+\DoxyCodeLine{00435     gsl\_matrix** R2 = (gsl\_matrix**) malloc((\mbox{\hyperlink{diff_eq_solvers_8h_ab101eeff378a7dedd4d59682edecc543}{BULSTO\_STEP\_MAX}}+1)*\textcolor{keyword}{sizeof}(gsl\_matrix*));}
+\DoxyCodeLine{00436 }
+\DoxyCodeLine{00437     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i <= \mbox{\hyperlink{diff_eq_solvers_8h_ab101eeff378a7dedd4d59682edecc543}{BULSTO\_STEP\_MAX}}; ++i)}
+\DoxyCodeLine{00438     \{}
+\DoxyCodeLine{00439         R1[i] = gsl\_matrix\_alloc(ndim,ndim);}
+\DoxyCodeLine{00440         R2[i] = gsl\_matrix\_alloc(ndim,ndim);}
+\DoxyCodeLine{00441     \}}
+\DoxyCodeLine{00442 }
+\DoxyCodeLine{00443     gsl\_matrix* y = gsl\_matrix\_alloc(ndim,ndim);}
+\DoxyCodeLine{00444     gsl\_matrix* eval = gsl\_matrix\_alloc(ndim,ndim);}
+\DoxyCodeLine{00445     gsl\_matrix* epsilon = gsl\_matrix\_calloc(ndim,ndim);}
+\DoxyCodeLine{00446 }
+\DoxyCodeLine{00447     \_\_bulsto\_final\_matrix\_floquet\_type\_real\_runner(0, x\_i, t\_i, H, delta, A, x\_f, params, y, eval, R1, R2, epsilon);}
+\DoxyCodeLine{00448     \textcolor{comment}{//printf("\%e \%e \%e\(\backslash\)n",error, H, error/H);}}
+\DoxyCodeLine{00449     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i <= \mbox{\hyperlink{diff_eq_solvers_8h_ab101eeff378a7dedd4d59682edecc543}{BULSTO\_STEP\_MAX}}; ++i)}
+\DoxyCodeLine{00450     \{}
+\DoxyCodeLine{00451         gsl\_matrix\_free(R1[i]);}
+\DoxyCodeLine{00452         gsl\_matrix\_free(R2[i]);}
+\DoxyCodeLine{00453     \}}
+\DoxyCodeLine{00454     free(R1);}
+\DoxyCodeLine{00455     free(R2);}
+\DoxyCodeLine{00456     gsl\_matrix\_free(y);}
+\DoxyCodeLine{00457     gsl\_matrix\_free(eval);}
+\DoxyCodeLine{00458     gsl\_matrix\_free(epsilon);}
+\DoxyCodeLine{00459 \}}
+
+\end{DoxyCode}
+
+
+References \mbox{\hyperlink{diff_eq_solvers_8h_source_l00021}{B\+U\+L\+S\+T\+O\+\_\+\+S\+T\+E\+P\+\_\+\+M\+AX}}.
+
+
+
+Referenced by \mbox{\hyperlink{floquet_8c_source_l00004}{floquet\+\_\+get\+\_\+stability\+\_\+reals\+\_\+general()}}.
+
+\mbox{\Hypertarget{diff_eq_solvers_8h_a857b28cb9668e1433ba7f7322000d4b5}\label{diff_eq_solvers_8h_a857b28cb9668e1433ba7f7322000d4b5}} 
+\index{diffEqSolvers.h@{diffEqSolvers.h}!rk4\_adaptive\_final\_matrix\_floquet\_type\_real@{rk4\_adaptive\_final\_matrix\_floquet\_type\_real}}
+\index{rk4\_adaptive\_final\_matrix\_floquet\_type\_real@{rk4\_adaptive\_final\_matrix\_floquet\_type\_real}!diffEqSolvers.h@{diffEqSolvers.h}}
+\doxysubsubsection{\texorpdfstring{rk4\_adaptive\_final\_matrix\_floquet\_type\_real()}{rk4\_adaptive\_final\_matrix\_floquet\_type\_real()}}
+{\footnotesize\ttfamily void rk4\+\_\+adaptive\+\_\+final\+\_\+matrix\+\_\+floquet\+\_\+type\+\_\+real (\begin{DoxyParamCaption}\item[{gsl\+\_\+matrix $\ast$}]{x\+\_\+i,  }\item[{double}]{t\+\_\+i,  }\item[{double}]{H,  }\item[{double}]{delta,  }\item[{void($\ast$)(double, gsl\+\_\+matrix $\ast$, void $\ast$)}]{A,  }\item[{gsl\+\_\+matrix $\ast$}]{x\+\_\+f,  }\item[{void $\ast$}]{params }\end{DoxyParamCaption})}
+
+
+
+Adaptive Step R\+K4 for real matrices for evolution of the form $ \dot{X} = A_\lambda(t)X $. 
+
+Implemented according to Computational Physics, Mark Newman (2013) 
+\begin{DoxyParams}{Parameters}
+{\em x\+\_\+i} & Initial Matrix $ x_i \in \mathbb{R}^{n\cross m} $ \\
+\hline
+{\em t\+\_\+i} & Time when x\+\_\+i is specified \\
+\hline
+{\em H} & Interval after which final x is required \\
+\hline
+{\em delta} & Maximum error allowed per unit time (The error is taken to be the maximum of the error of each element of the matrix) \\
+\hline
+{\em evol\+\_\+func} & Function that computes $ A_\lambda(t) $. The function should be of the form void A(double t, gsl\+\_\+matrix$\ast$ out, void$\ast$ params) \\
+\hline
+{\em x\+\_\+f} & Array to store the final x into. This should be preallocated \\
+\hline
+{\em params} & Parameters to be passed to A(t) \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{diff_eq_solvers_8c_source_l00165}{165}} of file \mbox{\hyperlink{diff_eq_solvers_8c_source}{diff\+Eq\+Solvers.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00166 \{}
+\DoxyCodeLine{00167     \textcolor{keywordtype}{double} h\_min = H/RK4\_MAX\_SLICES;}
+\DoxyCodeLine{00168     \textcolor{keywordtype}{int} nr = x\_i-\/>size1;}
+\DoxyCodeLine{00169     \textcolor{keywordtype}{int} nc = x\_i-\/>size2;}
+\DoxyCodeLine{00170     gsl\_matrix* k[4];}
+\DoxyCodeLine{00171     gsl\_matrix* k\_in[4];}
+\DoxyCodeLine{00172     gsl\_matrix* A\_val = gsl\_matrix\_alloc(nr,nc);}
+\DoxyCodeLine{00173     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < 4; ++i)}
+\DoxyCodeLine{00174     \{}
+\DoxyCodeLine{00175         k[i] = gsl\_matrix\_calloc(nr,nc);}
+\DoxyCodeLine{00176         k\_in[i] = gsl\_matrix\_calloc(nr,nc);}
+\DoxyCodeLine{00177     \}}
+\DoxyCodeLine{00178 }
+\DoxyCodeLine{00179     \textcolor{keywordtype}{double} t = t\_i;}
+\DoxyCodeLine{00180     \textcolor{keywordtype}{double} t\_f = t\_i + H;}
+\DoxyCodeLine{00181     \textcolor{keywordtype}{double} h = H/10.; \textcolor{comment}{// Initial h. This is a bit conservative, but will be refined further.}}
+\DoxyCodeLine{00182     gsl\_matrix\_memcpy(x\_f,x\_i);}
+\DoxyCodeLine{00183 }
+\DoxyCodeLine{00184     gsl\_matrix* x1 = gsl\_matrix\_alloc(nr,nc);}
+\DoxyCodeLine{00185     gsl\_matrix* x2 = gsl\_matrix\_alloc(nr,nc);}
+\DoxyCodeLine{00186 }
+\DoxyCodeLine{00187     \textcolor{keywordflow}{while} (t<t\_f)}
+\DoxyCodeLine{00188     \{}
+\DoxyCodeLine{00189         \textcolor{comment}{// Evaluate x1}}
+\DoxyCodeLine{00190         gsl\_matrix\_memcpy(x1,x\_f);}
+\DoxyCodeLine{00191 }
+\DoxyCodeLine{00192         A(t,A\_val,params);}
+\DoxyCodeLine{00193         gsl\_blas\_dgemm(CblasNoTrans, CblasNoTrans, h, A\_val, x\_f, 0., k[0]);}
+\DoxyCodeLine{00194 }
+\DoxyCodeLine{00195         gsl\_matrix\_memcpy(k\_in[0], k[0]);}
+\DoxyCodeLine{00196         gsl\_matrix\_scale(k\_in[0],0.5);}
+\DoxyCodeLine{00197         gsl\_matrix\_add(k\_in[0],x\_f);}
+\DoxyCodeLine{00198 }
+\DoxyCodeLine{00199         A(t+0.5*h,A\_val,params);}
+\DoxyCodeLine{00200         gsl\_blas\_dgemm(CblasNoTrans, CblasNoTrans, h, A\_val, k\_in[0], 0., k[1]);}
+\DoxyCodeLine{00201 }
+\DoxyCodeLine{00202         gsl\_matrix\_memcpy(k\_in[1], k[1]);}
+\DoxyCodeLine{00203         gsl\_matrix\_scale(k\_in[1],0.5);}
+\DoxyCodeLine{00204         gsl\_matrix\_add(k\_in[1],x\_f);}
+\DoxyCodeLine{00205 }
+\DoxyCodeLine{00206         gsl\_blas\_dgemm(CblasNoTrans, CblasNoTrans, h, A\_val, k\_in[1], 0., k[2]);}
+\DoxyCodeLine{00207 }
+\DoxyCodeLine{00208         gsl\_matrix\_memcpy(k\_in[2], k[2]);}
+\DoxyCodeLine{00209         gsl\_matrix\_add(k\_in[2],x\_f);}
+\DoxyCodeLine{00210 }
+\DoxyCodeLine{00211         A(t+h,A\_val,params);}
+\DoxyCodeLine{00212         gsl\_blas\_dgemm(CblasNoTrans, CblasNoTrans, h, A\_val, k\_in[2], 0., k[3]);}
+\DoxyCodeLine{00213 }
+\DoxyCodeLine{00214         gsl\_matrix\_memcpy(k\_in[3],k[3]);}
+\DoxyCodeLine{00215         gsl\_matrix\_add(k\_in[3],k[2]);}
+\DoxyCodeLine{00216         gsl\_matrix\_add(k\_in[3],k[2]);}
+\DoxyCodeLine{00217         gsl\_matrix\_add(k\_in[3],k[1]);}
+\DoxyCodeLine{00218         gsl\_matrix\_add(k\_in[3],k[1]);}
+\DoxyCodeLine{00219         gsl\_matrix\_add(k\_in[3],k[0]);}
+\DoxyCodeLine{00220         gsl\_matrix\_scale(k\_in[3], 1./6.);}
+\DoxyCodeLine{00221         gsl\_matrix\_add(x1,k\_in[3]);}
+\DoxyCodeLine{00222 }
+\DoxyCodeLine{00223         t += h;}
+\DoxyCodeLine{00224 }
+\DoxyCodeLine{00225         A(t,A\_val,params);}
+\DoxyCodeLine{00226         gsl\_blas\_dgemm(CblasNoTrans, CblasNoTrans, h, A\_val, x\_f, 0., k[0]);}
+\DoxyCodeLine{00227 }
+\DoxyCodeLine{00228         gsl\_matrix\_memcpy(k\_in[0], k[0]);}
+\DoxyCodeLine{00229         gsl\_matrix\_scale(k\_in[0],0.5);}
+\DoxyCodeLine{00230         gsl\_matrix\_add(k\_in[0],x1);}
+\DoxyCodeLine{00231 }
+\DoxyCodeLine{00232         A(t+0.5*h,A\_val,params);}
+\DoxyCodeLine{00233         gsl\_blas\_dgemm(CblasNoTrans, CblasNoTrans, h, A\_val, k\_in[0], 0., k[1]);}
+\DoxyCodeLine{00234 }
+\DoxyCodeLine{00235         gsl\_matrix\_memcpy(k\_in[1], k[1]);}
+\DoxyCodeLine{00236         gsl\_matrix\_scale(k\_in[1],0.5);}
+\DoxyCodeLine{00237         gsl\_matrix\_add(k\_in[1],x1);}
+\DoxyCodeLine{00238 }
+\DoxyCodeLine{00239         gsl\_blas\_dgemm(CblasNoTrans, CblasNoTrans, h, A\_val, k\_in[1], 0., k[2]);}
+\DoxyCodeLine{00240 }
+\DoxyCodeLine{00241         gsl\_matrix\_memcpy(k\_in[2], k[2]);}
+\DoxyCodeLine{00242         gsl\_matrix\_add(k\_in[2],x1);}
+\DoxyCodeLine{00243 }
+\DoxyCodeLine{00244         A(t+h,A\_val,params);}
+\DoxyCodeLine{00245         gsl\_blas\_dgemm(CblasNoTrans, CblasNoTrans, h, A\_val, k\_in[2], 0., k[3]);}
+\DoxyCodeLine{00246 }
+\DoxyCodeLine{00247         gsl\_matrix\_memcpy(k\_in[3],k[3]);}
+\DoxyCodeLine{00248         gsl\_matrix\_add(k\_in[3],k[2]);}
+\DoxyCodeLine{00249         gsl\_matrix\_add(k\_in[3],k[2]);}
+\DoxyCodeLine{00250         gsl\_matrix\_add(k\_in[3],k[1]);}
+\DoxyCodeLine{00251         gsl\_matrix\_add(k\_in[3],k[1]);}
+\DoxyCodeLine{00252         gsl\_matrix\_add(k\_in[3],k[0]);}
+\DoxyCodeLine{00253         gsl\_matrix\_scale(k\_in[3], 1./6.);}
+\DoxyCodeLine{00254         gsl\_matrix\_add(x1,k\_in[3]);}
+\DoxyCodeLine{00255 }
+\DoxyCodeLine{00256         t -\/= h;}
+\DoxyCodeLine{00257 }
+\DoxyCodeLine{00258         \textcolor{comment}{// Evaluate x2}}
+\DoxyCodeLine{00259         gsl\_matrix\_memcpy(x2,x\_f);}
+\DoxyCodeLine{00260 }
+\DoxyCodeLine{00261         A(t,A\_val,params);}
+\DoxyCodeLine{00262         gsl\_blas\_dgemm(CblasNoTrans, CblasNoTrans, 2*h, A\_val, x\_f, 0., k[0]);}
+\DoxyCodeLine{00263 }
+\DoxyCodeLine{00264         gsl\_matrix\_memcpy(k\_in[0], k[0]);}
+\DoxyCodeLine{00265         gsl\_matrix\_scale(k\_in[0],0.5);}
+\DoxyCodeLine{00266         gsl\_matrix\_add(k\_in[0],x\_f);}
+\DoxyCodeLine{00267 }
+\DoxyCodeLine{00268         A(t+h,A\_val,params);}
+\DoxyCodeLine{00269         gsl\_blas\_dgemm(CblasNoTrans, CblasNoTrans, 2*h, A\_val, k\_in[0], 0., k[1]);}
+\DoxyCodeLine{00270 }
+\DoxyCodeLine{00271         gsl\_matrix\_memcpy(k\_in[1], k[1]);}
+\DoxyCodeLine{00272         gsl\_matrix\_scale(k\_in[1],0.5);}
+\DoxyCodeLine{00273         gsl\_matrix\_add(k\_in[1],x\_f);}
+\DoxyCodeLine{00274 }
+\DoxyCodeLine{00275         gsl\_blas\_dgemm(CblasNoTrans, CblasNoTrans, 2*h, A\_val, k\_in[1], 0., k[2]);}
+\DoxyCodeLine{00276 }
+\DoxyCodeLine{00277         gsl\_matrix\_memcpy(k\_in[2], k[2]);}
+\DoxyCodeLine{00278         gsl\_matrix\_add(k\_in[2],x\_f);}
+\DoxyCodeLine{00279 }
+\DoxyCodeLine{00280         A(t+2*h,A\_val,params);}
+\DoxyCodeLine{00281         gsl\_blas\_dgemm(CblasNoTrans, CblasNoTrans, 2*h, A\_val, k\_in[2], 0., k[3]);}
+\DoxyCodeLine{00282 }
+\DoxyCodeLine{00283         gsl\_matrix\_memcpy(k\_in[3],k[3]);}
+\DoxyCodeLine{00284         gsl\_matrix\_add(k\_in[3],k[2]);}
+\DoxyCodeLine{00285         gsl\_matrix\_add(k\_in[3],k[2]);}
+\DoxyCodeLine{00286         gsl\_matrix\_add(k\_in[3],k[1]);}
+\DoxyCodeLine{00287         gsl\_matrix\_add(k\_in[3],k[1]);}
+\DoxyCodeLine{00288         gsl\_matrix\_add(k\_in[3],k[0]);}
+\DoxyCodeLine{00289         gsl\_matrix\_scale(k\_in[3], 1./6.);}
+\DoxyCodeLine{00290         gsl\_matrix\_add(x2,k\_in[3]);}
+\DoxyCodeLine{00291 }
+\DoxyCodeLine{00292         \textcolor{comment}{// Evaluate Error}}
+\DoxyCodeLine{00293         gsl\_matrix\_sub(x2,x1);}
+\DoxyCodeLine{00294         \textcolor{keywordtype}{double} rho\_to\_the\_fourth = (30.*h*delta)/GSL\_MAX(gsl\_matrix\_max(x2), -\/1.*gsl\_matrix\_min(x2));}
+\DoxyCodeLine{00295         rho\_to\_the\_fourth = pow(rho\_to\_the\_fourth,0.25);}
+\DoxyCodeLine{00296         \textcolor{keywordflow}{if} (rho\_to\_the\_fourth>1)}
+\DoxyCodeLine{00297         \{}
+\DoxyCodeLine{00298             gsl\_matrix\_memcpy(x\_f,x1);}
+\DoxyCodeLine{00299             gsl\_matrix\_scale(x2, -\/1./15.);}
+\DoxyCodeLine{00300             gsl\_matrix\_add(x\_f,x2);}
+\DoxyCodeLine{00301             t += 2*h;}
+\DoxyCodeLine{00302             h = h*(GSL\_MIN(rho\_to\_the\_fourth, RK4\_MAX\_SCALE));}
+\DoxyCodeLine{00303             h = GSL\_MIN(0.5*(t\_f-\/t),h);}
+\DoxyCodeLine{00304         \}}
+\DoxyCodeLine{00305         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(h > h\_min)}
+\DoxyCodeLine{00306         \{}
+\DoxyCodeLine{00307             h = h*(GSL\_MAX(rho\_to\_the\_fourth, RK4\_MIN\_SCALE));}
+\DoxyCodeLine{00308         \}}
+\DoxyCodeLine{00309         \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00310         \{}
+\DoxyCodeLine{00311             gsl\_matrix\_memcpy(x\_f,x1);}
+\DoxyCodeLine{00312             gsl\_matrix\_scale(x2, -\/1./15.);}
+\DoxyCodeLine{00313             gsl\_matrix\_add(x\_f,x2);}
+\DoxyCodeLine{00314             t += 2*h;}
+\DoxyCodeLine{00315             h = h\_min;}
+\DoxyCodeLine{00316         \}}
+\DoxyCodeLine{00317     \}}
+\DoxyCodeLine{00318 }
+\DoxyCodeLine{00319     gsl\_matrix\_free(A\_val);}
+\DoxyCodeLine{00320 }
+\DoxyCodeLine{00321     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < 4; ++i)}
+\DoxyCodeLine{00322     \{}
+\DoxyCodeLine{00323         gsl\_matrix\_free(k[i]);}
+\DoxyCodeLine{00324         gsl\_matrix\_free(k\_in[i]);}
+\DoxyCodeLine{00325     \}}
+\DoxyCodeLine{00326 }
+\DoxyCodeLine{00327     gsl\_matrix\_free(x1);}
+\DoxyCodeLine{00328     gsl\_matrix\_free(x2);}
+\DoxyCodeLine{00329 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{diff_eq_solvers_8h_ad579183a7a1c86772d12696e198bfcf4}\label{diff_eq_solvers_8h_ad579183a7a1c86772d12696e198bfcf4}} 
+\index{diffEqSolvers.h@{diffEqSolvers.h}!rk4\_fixed\_final\_matrix\_floquet\_type\_complex@{rk4\_fixed\_final\_matrix\_floquet\_type\_complex}}
+\index{rk4\_fixed\_final\_matrix\_floquet\_type\_complex@{rk4\_fixed\_final\_matrix\_floquet\_type\_complex}!diffEqSolvers.h@{diffEqSolvers.h}}
+\doxysubsubsection{\texorpdfstring{rk4\_fixed\_final\_matrix\_floquet\_type\_complex()}{rk4\_fixed\_final\_matrix\_floquet\_type\_complex()}}
+{\footnotesize\ttfamily void rk4\+\_\+fixed\+\_\+final\+\_\+matrix\+\_\+floquet\+\_\+type\+\_\+complex (\begin{DoxyParamCaption}\item[{gsl\+\_\+matrix\+\_\+complex $\ast$}]{x\+\_\+i,  }\item[{double}]{t\+\_\+i,  }\item[{double}]{H,  }\item[{double}]{h,  }\item[{void($\ast$)(double, gsl\+\_\+matrix\+\_\+complex $\ast$, void $\ast$)}]{A,  }\item[{gsl\+\_\+matrix\+\_\+complex $\ast$}]{x\+\_\+f,  }\item[{void $\ast$}]{params }\end{DoxyParamCaption})}
+
+
+
+Fixed Step R\+K4 for complex matrices for evolution of the form $ \dot{X} = A_\lambda(t)X $. 
+
+Implemented according to Computational Physics, Mark Newman (2013) 
+\begin{DoxyParams}{Parameters}
+{\em x\+\_\+i} & Initial Matrix $ x_i \in \mathbb{C}^{n\cross m} $ \\
+\hline
+{\em t\+\_\+i} & Time when x\+\_\+i is specified \\
+\hline
+{\em H} & Interval after which final x is required \\
+\hline
+{\em h} & Step size \\
+\hline
+{\em evol\+\_\+func} & Function that computes $ A_\lambda(t) $. The function should be of the form void A(double t, gsl\+\_\+matrix\+\_\+complex$\ast$ out, void$\ast$ params) \\
+\hline
+{\em x\+\_\+f} & Array to store the final x into. This should be preallocated \\
+\hline
+{\em params} & Parameters to be passed to A(t) \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{diff_eq_solvers_8c_source_l00102}{102}} of file \mbox{\hyperlink{diff_eq_solvers_8c_source}{diff\+Eq\+Solvers.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00103 \{}
+\DoxyCodeLine{00104     \textcolor{keywordtype}{int} nr = x\_i-\/>size1;}
+\DoxyCodeLine{00105     \textcolor{keywordtype}{int} nc = x\_i-\/>size2;}
+\DoxyCodeLine{00106     gsl\_matrix\_complex* k[4];}
+\DoxyCodeLine{00107     gsl\_matrix\_complex* k\_in[4];}
+\DoxyCodeLine{00108     gsl\_matrix\_complex* A\_val = gsl\_matrix\_complex\_alloc(nr,nc);}
+\DoxyCodeLine{00109     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < 4; ++i)}
+\DoxyCodeLine{00110     \{}
+\DoxyCodeLine{00111         k[i] = gsl\_matrix\_complex\_alloc(nr,nc);}
+\DoxyCodeLine{00112         k\_in[i] = gsl\_matrix\_complex\_alloc(nr,nc);}
+\DoxyCodeLine{00113     \}}
+\DoxyCodeLine{00114 }
+\DoxyCodeLine{00115     gsl\_complex h = gsl\_complex\_rect(h\_,0.);}
+\DoxyCodeLine{00116     gsl\_complex zero = gsl\_complex\_rect(0.,0.);}
+\DoxyCodeLine{00117     gsl\_complex half = gsl\_complex\_rect(0.5,0.);}
+\DoxyCodeLine{00118     gsl\_complex one\_sixth = gsl\_complex\_rect(1./6.,0.);}
+\DoxyCodeLine{00119 }
+\DoxyCodeLine{00120     \textcolor{keywordtype}{double} t = t\_i;}
+\DoxyCodeLine{00121     \textcolor{keywordtype}{double} t\_f = t\_i + H;}
+\DoxyCodeLine{00122     gsl\_matrix\_complex\_memcpy(x\_f,x\_i);}
+\DoxyCodeLine{00123     \textcolor{keywordflow}{while} (t<t\_f)}
+\DoxyCodeLine{00124     \{}
+\DoxyCodeLine{00125         A(t,A\_val,params);}
+\DoxyCodeLine{00126         gsl\_blas\_zgemm(CblasNoTrans, CblasNoTrans, h, A\_val, x\_f, zero, k[0]);}
+\DoxyCodeLine{00127 }
+\DoxyCodeLine{00128         gsl\_matrix\_complex\_memcpy(k\_in[0], k[0]);}
+\DoxyCodeLine{00129         gsl\_matrix\_complex\_scale(k\_in[0],half);}
+\DoxyCodeLine{00130         gsl\_matrix\_complex\_add(k\_in[0],x\_f);}
+\DoxyCodeLine{00131 }
+\DoxyCodeLine{00132         A(t+0.5*h\_,A\_val,params);}
+\DoxyCodeLine{00133         gsl\_blas\_zgemm(CblasNoTrans, CblasNoTrans, h, A\_val, k\_in[0], zero, k[1]);}
+\DoxyCodeLine{00134 }
+\DoxyCodeLine{00135         gsl\_matrix\_complex\_memcpy(k\_in[1], k[1]);}
+\DoxyCodeLine{00136         gsl\_matrix\_complex\_scale(k\_in[1],half);}
+\DoxyCodeLine{00137         gsl\_matrix\_complex\_add(k\_in[1],x\_f);}
+\DoxyCodeLine{00138 }
+\DoxyCodeLine{00139         gsl\_blas\_zgemm(CblasNoTrans, CblasNoTrans, h, A\_val, k\_in[1], zero, k[2]);}
+\DoxyCodeLine{00140 }
+\DoxyCodeLine{00141         gsl\_matrix\_complex\_memcpy(k\_in[2], k[2]);}
+\DoxyCodeLine{00142         gsl\_matrix\_complex\_add(k\_in[2],x\_f);}
+\DoxyCodeLine{00143 }
+\DoxyCodeLine{00144         A(t+h\_,A\_val,params);}
+\DoxyCodeLine{00145         gsl\_blas\_zgemm(CblasNoTrans, CblasNoTrans, h, A\_val, k\_in[2], zero, k[3]);}
+\DoxyCodeLine{00146 }
+\DoxyCodeLine{00147         gsl\_matrix\_complex\_memcpy(k\_in[3],k[3]);}
+\DoxyCodeLine{00148         gsl\_matrix\_complex\_add(k\_in[3],k[2]);}
+\DoxyCodeLine{00149         gsl\_matrix\_complex\_add(k\_in[3],k[2]);}
+\DoxyCodeLine{00150         gsl\_matrix\_complex\_add(k\_in[3],k[1]);}
+\DoxyCodeLine{00151         gsl\_matrix\_complex\_add(k\_in[3],k[1]);}
+\DoxyCodeLine{00152         gsl\_matrix\_complex\_add(k\_in[3],k[0]);}
+\DoxyCodeLine{00153         gsl\_matrix\_complex\_scale(k\_in[3], one\_sixth);}
+\DoxyCodeLine{00154         gsl\_matrix\_complex\_add(x\_f,k\_in[3]);}
+\DoxyCodeLine{00155         t += h\_;}
+\DoxyCodeLine{00156     \}}
+\DoxyCodeLine{00157 }
+\DoxyCodeLine{00158     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < 4; ++i)}
+\DoxyCodeLine{00159     \{}
+\DoxyCodeLine{00160         gsl\_matrix\_complex\_free(k[i]);}
+\DoxyCodeLine{00161         gsl\_matrix\_complex\_free(k\_in[i]);}
+\DoxyCodeLine{00162     \}}
+\DoxyCodeLine{00163 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{diff_eq_solvers_8h_adea071b2e50926df1b1e49b4ede2006d}\label{diff_eq_solvers_8h_adea071b2e50926df1b1e49b4ede2006d}} 
+\index{diffEqSolvers.h@{diffEqSolvers.h}!rk4\_fixed\_final\_matrix\_floquet\_type\_real@{rk4\_fixed\_final\_matrix\_floquet\_type\_real}}
+\index{rk4\_fixed\_final\_matrix\_floquet\_type\_real@{rk4\_fixed\_final\_matrix\_floquet\_type\_real}!diffEqSolvers.h@{diffEqSolvers.h}}
+\doxysubsubsection{\texorpdfstring{rk4\_fixed\_final\_matrix\_floquet\_type\_real()}{rk4\_fixed\_final\_matrix\_floquet\_type\_real()}}
+{\footnotesize\ttfamily void rk4\+\_\+fixed\+\_\+final\+\_\+matrix\+\_\+floquet\+\_\+type\+\_\+real (\begin{DoxyParamCaption}\item[{gsl\+\_\+matrix $\ast$}]{x\+\_\+i,  }\item[{double}]{t\+\_\+i,  }\item[{double}]{H,  }\item[{double}]{h,  }\item[{void($\ast$)(double, gsl\+\_\+matrix $\ast$, void $\ast$)}]{A,  }\item[{gsl\+\_\+matrix $\ast$}]{x\+\_\+f,  }\item[{void $\ast$}]{params }\end{DoxyParamCaption})}
+
+
+
+Fixed Step R\+K4 for real matrices for evolution of the form $ \dot{X} = A_\lambda(t)X $. 
+
+Implemented according to Computational Physics, Mark Newman (2013) 
+\begin{DoxyParams}{Parameters}
+{\em x\+\_\+i} & Initial Matrix $ x_i \in \mathbb{R}^{n\cross m} $ \\
+\hline
+{\em t\+\_\+i} & Time when x\+\_\+i is specified \\
+\hline
+{\em H} & Interval after which final x is required \\
+\hline
+{\em h} & Step size \\
+\hline
+{\em evol\+\_\+func} & Function that computes $ A_\lambda(t) $. The function should be of the form void A(double t, gsl\+\_\+matrix$\ast$ out, void$\ast$ params) \\
+\hline
+{\em x\+\_\+f} & Array to store the final x into. This should be preallocated \\
+\hline
+{\em params} & Parameters to be passed to A(t) \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{diff_eq_solvers_8c_source_l00044}{44}} of file \mbox{\hyperlink{diff_eq_solvers_8c_source}{diff\+Eq\+Solvers.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00045 \{}
+\DoxyCodeLine{00046     \textcolor{keywordtype}{int} nr = x\_i-\/>size1;}
+\DoxyCodeLine{00047     \textcolor{keywordtype}{int} nc = x\_i-\/>size2;}
+\DoxyCodeLine{00048     gsl\_matrix* k[4];}
+\DoxyCodeLine{00049     gsl\_matrix* k\_in[4];}
+\DoxyCodeLine{00050     gsl\_matrix* A\_val = gsl\_matrix\_alloc(nr,nc);}
+\DoxyCodeLine{00051     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < 4; ++i)}
+\DoxyCodeLine{00052     \{}
+\DoxyCodeLine{00053         k[i] = gsl\_matrix\_calloc(nr,nc);}
+\DoxyCodeLine{00054         k\_in[i] = gsl\_matrix\_calloc(nr,nc);}
+\DoxyCodeLine{00055     \}}
+\DoxyCodeLine{00056 }
+\DoxyCodeLine{00057     \textcolor{keywordtype}{double} t = t\_i;}
+\DoxyCodeLine{00058     \textcolor{keywordtype}{double} t\_f = t\_i + H;}
+\DoxyCodeLine{00059     gsl\_matrix\_memcpy(x\_f,x\_i);}
+\DoxyCodeLine{00060     \textcolor{keywordflow}{while} (t<t\_f)}
+\DoxyCodeLine{00061     \{}
+\DoxyCodeLine{00062         A(t,A\_val,params);}
+\DoxyCodeLine{00063         gsl\_blas\_dgemm(CblasNoTrans, CblasNoTrans, h, A\_val, x\_f, 0., k[0]);}
+\DoxyCodeLine{00064 }
+\DoxyCodeLine{00065         gsl\_matrix\_memcpy(k\_in[0], k[0]);}
+\DoxyCodeLine{00066         gsl\_matrix\_scale(k\_in[0],0.5);}
+\DoxyCodeLine{00067         gsl\_matrix\_add(k\_in[0],x\_f);}
+\DoxyCodeLine{00068 }
+\DoxyCodeLine{00069         A(t+0.5*h,A\_val,params);}
+\DoxyCodeLine{00070         gsl\_blas\_dgemm(CblasNoTrans, CblasNoTrans, h, A\_val, k\_in[0], 0., k[1]);}
+\DoxyCodeLine{00071 }
+\DoxyCodeLine{00072         gsl\_matrix\_memcpy(k\_in[1], k[1]);}
+\DoxyCodeLine{00073         gsl\_matrix\_scale(k\_in[1],0.5);}
+\DoxyCodeLine{00074         gsl\_matrix\_add(k\_in[1],x\_f);}
+\DoxyCodeLine{00075 }
+\DoxyCodeLine{00076         gsl\_blas\_dgemm(CblasNoTrans, CblasNoTrans, h, A\_val, k\_in[1], 0., k[2]);}
+\DoxyCodeLine{00077 }
+\DoxyCodeLine{00078         gsl\_matrix\_memcpy(k\_in[2], k[2]);}
+\DoxyCodeLine{00079         gsl\_matrix\_add(k\_in[2],x\_f);}
+\DoxyCodeLine{00080 }
+\DoxyCodeLine{00081         A(t+h,A\_val,params);}
+\DoxyCodeLine{00082         gsl\_blas\_dgemm(CblasNoTrans, CblasNoTrans, h, A\_val, k\_in[2], 0., k[3]);}
+\DoxyCodeLine{00083 }
+\DoxyCodeLine{00084         gsl\_matrix\_memcpy(k\_in[3],k[3]);}
+\DoxyCodeLine{00085         gsl\_matrix\_add(k\_in[3],k[2]);}
+\DoxyCodeLine{00086         gsl\_matrix\_add(k\_in[3],k[2]);}
+\DoxyCodeLine{00087         gsl\_matrix\_add(k\_in[3],k[1]);}
+\DoxyCodeLine{00088         gsl\_matrix\_add(k\_in[3],k[1]);}
+\DoxyCodeLine{00089         gsl\_matrix\_add(k\_in[3],k[0]);}
+\DoxyCodeLine{00090         gsl\_matrix\_scale(k\_in[3], 1./6.);}
+\DoxyCodeLine{00091         gsl\_matrix\_add(x\_f,k\_in[3]);}
+\DoxyCodeLine{00092         t += h;}
+\DoxyCodeLine{00093     \}}
+\DoxyCodeLine{00094 }
+\DoxyCodeLine{00095     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < 4; ++i)}
+\DoxyCodeLine{00096     \{}
+\DoxyCodeLine{00097         gsl\_matrix\_free(k[i]);}
+\DoxyCodeLine{00098         gsl\_matrix\_free(k\_in[i]);}
+\DoxyCodeLine{00099     \}}
+\DoxyCodeLine{00100 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{diff_eq_solvers_8h_a80410c381d45db2a6b3e6fb457b4763e}\label{diff_eq_solvers_8h_a80410c381d45db2a6b3e6fb457b4763e}} 
+\index{diffEqSolvers.h@{diffEqSolvers.h}!rk4\_fixed\_final\_vector\_real@{rk4\_fixed\_final\_vector\_real}}
+\index{rk4\_fixed\_final\_vector\_real@{rk4\_fixed\_final\_vector\_real}!diffEqSolvers.h@{diffEqSolvers.h}}
+\doxysubsubsection{\texorpdfstring{rk4\_fixed\_final\_vector\_real()}{rk4\_fixed\_final\_vector\_real()}}
+{\footnotesize\ttfamily void rk4\+\_\+fixed\+\_\+final\+\_\+vector\+\_\+real (\begin{DoxyParamCaption}\item[{int}]{ndim,  }\item[{double $\ast$}]{x\+\_\+i,  }\item[{double}]{t\+\_\+i,  }\item[{double}]{H,  }\item[{double}]{h,  }\item[{void($\ast$)(double $\ast$, double, double $\ast$, void $\ast$)}]{evol\+\_\+func,  }\item[{double $\ast$}]{x\+\_\+f,  }\item[{void $\ast$}]{params }\end{DoxyParamCaption})}
+
+
+
+Fixed Step R\+K4 for vectors for general $ \dot{x} = f_\lambda(x,t) $. 
+
+Implemented according to Computational Physics, Mark Newman (2013) 
+\begin{DoxyParams}{Parameters}
+{\em ndim} & Dimensionality of x \\
+\hline
+{\em x\+\_\+i} & Initial Vector $ x_i \in \mathbb{R}^{n} $ \\
+\hline
+{\em t\+\_\+i} & Time when x\+\_\+i is specified \\
+\hline
+{\em H} & Interval after which final x is required \\
+\hline
+{\em h} & Step size \\
+\hline
+{\em evol\+\_\+func} & Function that computes $ \frac{dx}{dt}(x,t) $. The function should be of the form void evol\+\_\+func(double$\ast$ x, double t, double$\ast$ x\+\_\+dot, void$\ast$ params) \\
+\hline
+{\em x\+\_\+f} & Array to store the final x into. This should be preallocated \\
+\hline
+{\em params} & Parameters to be passed to evol\+\_\+func \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{diff_eq_solvers_8c_source_l00031}{31}} of file \mbox{\hyperlink{diff_eq_solvers_8c_source}{diff\+Eq\+Solvers.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00032 \{}
+\DoxyCodeLine{00033     \textcolor{keywordtype}{double} t = t\_i;}
+\DoxyCodeLine{00034     \textcolor{keywordtype}{double} t\_f = t\_i + H;}
+\DoxyCodeLine{00035 }
+\DoxyCodeLine{00036     cblas\_dcopy(ndim,x\_i,\textcolor{keyword}{sizeof}(x\_i[0]),x\_f,\textcolor{keyword}{sizeof}(x\_f[0]));}
+\DoxyCodeLine{00037     \textcolor{keywordflow}{while}(t<t\_f)}
+\DoxyCodeLine{00038     \{}
+\DoxyCodeLine{00039         \_\_rk4\_single\_vector(ndim,x\_f,t,h,evol\_func,x\_f, params);}
+\DoxyCodeLine{00040         t += h;}
+\DoxyCodeLine{00041     \}}
+\DoxyCodeLine{00042 \}}
+
+\end{DoxyCode}

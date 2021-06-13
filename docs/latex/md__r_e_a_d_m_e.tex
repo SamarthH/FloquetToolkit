@@ -1,0 +1,49 @@
+This is an attempt to create a C library to perform Floquet Analysis on a general system.\hypertarget{md__r_e_a_d_m_e_autotoc_md1}{}\doxysection{How to Install}\label{md__r_e_a_d_m_e_autotoc_md1}
+To compile this, you would require G\+SL. In Debian-\/based distributions, it can be obtained by using 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{sudo apt install libgsl-\/dev}
+\end{DoxyCode}
+
+
+Just go to src and then run 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{make all}
+\end{DoxyCode}
+
+
+to compile all the programs. To compile just for specific cases, use 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{make mathieu}
+\end{DoxyCode}
+
+
+to get the programs corresponding to mathieu equation.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{make meissner}
+\end{DoxyCode}
+
+
+to get the programs corresponding to hill-\/meissner equation.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{make population\_dynamics}
+\end{DoxyCode}
+
+
+to get the programs corresponding to the results on population dynamics.\hypertarget{md__r_e_a_d_m_e_autotoc_md2}{}\doxysection{How to Run}\label{md__r_e_a_d_m_e_autotoc_md2}
+To run this, just go to the respective directories and run the compiled binaries. They will generate some data files. To plot them and get the plots, run 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{python3 plotter3d.py}
+\end{DoxyCode}
+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{python3 plotter2d.py}
+\end{DoxyCode}
+
+
+Depending on the type of file that is available. plotter3d.\+py generated plots when 2 parameters are involved and plotter2d generates plots for when only 1 parameter is involved. 

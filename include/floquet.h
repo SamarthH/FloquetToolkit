@@ -1,15 +1,15 @@
+/// \file
 #ifndef FLOQUET
 #define FLOQUET
 
-#define ERR_TOL 1e-6
-#define ERR_EIGEN_TOL 1e-5
+#define ERR_TOL 1e-6 ///< Maximum total error to which the differential equation would be solved
+#define ERR_EIGEN_TOL 1e-5 ///< Maximum value of \f$ ||\rho_\text{max}| - 1| \f$ to differentiate between stable and unstable system
 
 #include "diffEqSolvers.h"
 #include <gsl/gsl_eigen.h>
 #include <omp.h>
 
-/*******************************************************************************
- * \brief Function which checks if the function is Floquet Stable or unstable for a general function
+/** @brief Function which checks if the function is Floquet Stable or unstable for a general function
  *
  * Naive implementation with the elements of the \f$ X(T) \f$ matrix calculated to precision ERR_TOL
  * @param n Number of elements of vector that \f$ A(t) \f$ operates on
@@ -20,12 +20,9 @@
  * @param largest_multiplier_abs Pointer to store the absolute value of the largest (by abs) computed Floquet multiplier into. No multiplier will be stored if NULL is passed.
  * @returns 1 if Stable, -1 if unstable, 0 if periodic or indeterminate to accuracy ERR_EIGEN_TOL. In rare cases, 2 would be returned if none of the computed floquet multipliers lead to instability, but not all of multipliers could be computed.
  ******************************************************************************/
-
-
 int floquet_get_stability_reals_general(int n, void (*A)(double, gsl_matrix*, void*), void* params, double T, gsl_complex* largest_multiplier, double* largest_multiplier_abs);
 
-/*******************************************************************************
- * \brief CPU Parallelized Function which iterates over a range of a parameter and checks if the function is Floquet Stable or unstable for a general function
+/** @brief CPU Parallelized Function which iterates over a range of a parameter and checks if the function is Floquet Stable or unstable for a general function
  *
  * Run floquet_get_stability_reals_general on a range of a parameter and stores the stability, floquet multiplier corresponding to the largest absolute value, and the absolute value of the largest floquet multiplier.
  * This is a memory naive implementation.
@@ -38,11 +35,9 @@ int floquet_get_stability_reals_general(int n, void (*A)(double, gsl_matrix*, vo
  * @param largest_multiplier Array to store the largest (by abs) computed Floquet multipliers into. No multiplier will be stored if NULL is passed.
  * @param largest_multiplier_abs Array to store the absolute value of the largest (by abs) computed Floquet multipliers into. No multiplier will be stored if NULL is passed.
  ******************************************************************************/
-
 void floquet_get_stability_array_real_single_param_general(int n, void (*A)(double, gsl_matrix*, void*), double T, double start, double end, int nstep, int* stability, gsl_complex* largest_multiplier, double* largest_multiplier_abs);
 
-/*******************************************************************************
- * \brief CPU Parallelized Function which iterates over the ranges of 2 parameters and checks if the function is Floquet Stable or unstable for a general function
+/** @brief CPU Parallelized Function which iterates over the ranges of 2 parameters and checks if the function is Floquet Stable or unstable for a general function
  *
  * Run floquet_get_stability_reals_general on the ranges of 2 parameters and stores the stability, floquet multiplier corresponding to the largest absolute value, and the absolute value of the largest floquet multiplier.
  * This is a memory naive implementation.
@@ -55,7 +50,6 @@ void floquet_get_stability_array_real_single_param_general(int n, void (*A)(doub
  * @param largest_multiplier Matrix to store the largest (by abs) computed Floquet multipliers into. No multiplier will be stored if NULL is passed.
  * @param largest_multiplier_abs Matrix to store the absolute value of the largest (by abs) computed Floquet multipliers into. No multiplier will be stored if NULL is passed.
  ******************************************************************************/
-
 void floquet_get_stability_array_real_double_param_general(int n, void (*A)(double, gsl_matrix*, void*), double T, double* start, double* end, int* nstep, int** stability, gsl_complex** largest_multiplier, double** largest_multiplier_abs);
 
 #endif

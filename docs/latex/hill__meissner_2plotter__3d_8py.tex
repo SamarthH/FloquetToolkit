@@ -1,0 +1,42 @@
+\hypertarget{hill__meissner_2plotter__3d_8py}{}\doxysection{hill\+\_\+meissner/plotter\+\_\+3d.py File Reference}
+\label{hill__meissner_2plotter__3d_8py}\index{hill\_meissner/plotter\_3d.py@{hill\_meissner/plotter\_3d.py}}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespaceplotter__3d}{plotter\+\_\+3d}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceplotter__3d_a1df8fcdacfec00fc258a3c72772c2f18}{stability}} = np.\+loadtxt(\char`\"{}stability.\+csv\char`\"{},delimiter=\textquotesingle{},\textquotesingle{},dtype=int)
+\item 
+\mbox{\hyperlink{namespaceplotter__3d_a945fec2eec92b87dcd78ba3d2c6eea0d}{largest\+\_\+eigen}} = np.\+loadtxt(\char`\"{}largest\+\_\+multiplier\+\_\+abs.\+csv\char`\"{},delimiter=\textquotesingle{},\textquotesingle{},dtype=float)
+\item 
+\mbox{\hyperlink{namespaceplotter__3d_a41000f175dc0115080e2a682cc06dbe9}{params}} = open(\char`\"{}extraparams.\+txt\char`\"{},\textquotesingle{}r\textquotesingle{})
+\item 
+\mbox{\hyperlink{namespaceplotter__3d_a2d247890afaaa65db9e7f3884bc88dc2}{plot\+\_\+title}} = next(params)
+\item 
+\mbox{\hyperlink{namespaceplotter__3d_a250828ef0a860a83620c9ba673c8313d}{plot\+\_\+xlabel}} = next(params)
+\item 
+\mbox{\hyperlink{namespaceplotter__3d_a59a26a222534766656ec2f42a7880524}{plot\+\_\+ylabel}} = next(params)
+\item 
+\mbox{\hyperlink{namespaceplotter__3d_aee1034d15d45e33423370d17b12171ea}{plot\+\_\+ye}}
+\item 
+\mbox{\hyperlink{namespaceplotter__3d_a58c8c1b9d7b2afc1e095e7db4c9699a9}{plot\+\_\+xs}}
+\item 
+\mbox{\hyperlink{namespaceplotter__3d_abca4511a5ad93e7ed56029f3b4c7fff8}{plot\+\_\+ys}}
+\item 
+\mbox{\hyperlink{namespaceplotter__3d_afb3d10026cfcfb92f0993fcc0e4c866a}{plot\+\_\+xe}}
+\item 
+\mbox{\hyperlink{namespaceplotter__3d_a102d36da59b61d6f3d1edc27fc82cc2d}{usetex}}
+\item 
+\mbox{\hyperlink{namespaceplotter__3d_ac665b11c6b884a502a988db8fd686796}{family}}
+\item 
+\mbox{\hyperlink{namespaceplotter__3d_a64aa603bc3c6c1587e7c6542452481ac}{fig}}
+\item 
+\mbox{\hyperlink{namespaceplotter__3d_a8fa675eb2fcec5b95d9d21c670da7f30}{ax}}
+\item 
+\mbox{\hyperlink{namespaceplotter__3d_ad0e5f55e3c0a06964a25a922047c023c}{cp}} = ax.\+imshow(stability, extent = \mbox{[}plot\+\_\+xs, plot\+\_\+xe, plot\+\_\+ys, plot\+\_\+ye\mbox{]}, cmap=\textquotesingle{}gray\textquotesingle{})
+\item 
+\mbox{\hyperlink{namespaceplotter__3d_ab4024db5b48e2ddd9bcd43847f10f016}{dpi}}
+\end{DoxyCompactItemize}

@@ -1,3 +1,4 @@
+/// \file
 #ifndef DIFFEQ_SOLVERS
 #define DIFFEQ_SOLVERS
 
@@ -12,16 +13,16 @@
 #include <gsl/gsl_complex_math.h>
 
 #define GSL_RANGE_CHECK_OFF
+#define HAVE_INLINE
 
 #define RK4_MAX_SCALE 5
 #define RK4_MIN_SCALE 0.2
 #define RK4_MAX_SLICES 1e8
-#define BULSTO_STEP_MAX 16
-#define BULSTO_MAX_LAYERS 16
+#define BULSTO_STEP_MAX 16 ///< Maximum number of midpoint method evaluations in one instance of Bulirsch-Stoer Method
+#define BULSTO_MAX_LAYERS 32 ///< Maximum depth of halving of Bulirsch-Stoer Method (this means that \f$ H_{min} = 2^{-32}H \f$)
 
 
-/*******************************************************************************
- * \brief Fixed Step RK4 for vectors for general \f$ \dot{x} = f_\lambda(x,t) \f$
+/** @brief Fixed Step RK4 for vectors for general \f$ \dot{x} = f_\lambda(x,t) \f$
  *
  * Implemented according to Computational Physics, Mark Newman (2013)
  * @param ndim Dimensionality of x
@@ -35,8 +36,7 @@
  ******************************************************************************/
 void rk4_fixed_final_vector_real(int ndim, double* x_i, double t_i, double H, double h, void (*evol_func)(double*, double, double*, void*), double* x_f, void* params);
 
-/*******************************************************************************
- * \brief Fixed Step RK4 for real matrices for evolution of the form \f$ \dot{X} = A_\lambda(t)X \f$
+/** @brief Fixed Step RK4 for real matrices for evolution of the form \f$ \dot{X} = A_\lambda(t)X \f$
  *
  * Implemented according to Computational Physics, Mark Newman (2013)
  * @param x_i Initial Matrix \f$ x_i \in  \mathbb{R}^{n\cross m} \f$
@@ -47,11 +47,9 @@ void rk4_fixed_final_vector_real(int ndim, double* x_i, double t_i, double H, do
  * @param x_f Array to store the final x into. This should be preallocated
  * @param params Parameters to be passed to A(t)
  ******************************************************************************/
-
 void rk4_fixed_final_matrix_floquet_type_real(gsl_matrix* x_i, double t_i, double H, double h, void (*A)(double, gsl_matrix*, void*), gsl_matrix* x_f, void* params);
 
-/*******************************************************************************
- * \brief Fixed Step RK4 for complex matrices for evolution of the form \f$ \dot{X} = A_\lambda(t)X \f$
+/** @brief Fixed Step RK4 for complex matrices for evolution of the form \f$ \dot{X} = A_\lambda(t)X \f$
  *
  * Implemented according to Computational Physics, Mark Newman (2013)
  * @param x_i Initial Matrix \f$ x_i \in  \mathbb{C}^{n\cross m} \f$
@@ -62,11 +60,9 @@ void rk4_fixed_final_matrix_floquet_type_real(gsl_matrix* x_i, double t_i, doubl
  * @param x_f Array to store the final x into. This should be preallocated
  * @param params Parameters to be passed to A(t)
  ******************************************************************************/
-
 void rk4_fixed_final_matrix_floquet_type_complex(gsl_matrix_complex* x_i, double t_i, double H, double h, void (*A)(double, gsl_matrix_complex*, void*), gsl_matrix_complex* x_f, void* params);
 
-/*******************************************************************************
- * \brief Adaptive Step RK4 for real matrices for evolution of the form \f$ \dot{X} = A_\lambda(t)X \f$
+/** @brief Adaptive Step RK4 for real matrices for evolution of the form \f$ \dot{X} = A_\lambda(t)X \f$
  *
  * Implemented according to Computational Physics, Mark Newman (2013)
  * @param x_i Initial Matrix \f$ x_i \in  \mathbb{R}^{n\cross m} \f$
@@ -77,11 +73,9 @@ void rk4_fixed_final_matrix_floquet_type_complex(gsl_matrix_complex* x_i, double
  * @param x_f Array to store the final x into. This should be preallocated
  * @param params Parameters to be passed to A(t)
  ******************************************************************************/
-
 void rk4_adaptive_final_matrix_floquet_type_real(gsl_matrix* x_i, double t_i, double H, double delta, void (*A)(double, gsl_matrix*, void*), gsl_matrix* x_f, void* params);
 
-/*******************************************************************************
- * \brief Bulirsch-Stoer Method for real matrices for evolution of the form \f$ \dot{X} = A_\lambda(t)X \f$
+/** @brief Bulirsch-Stoer Method for real matrices for evolution of the form \f$ \dot{X} = A_\lambda(t)X \f$
  *
  * Implemented according to Computational Physics, Mark Newman (2013)
  * @param x_i Initial Matrix \f$ x_i \in  \mathbb{R}^{n\cross m} \f$
@@ -92,7 +86,6 @@ void rk4_adaptive_final_matrix_floquet_type_real(gsl_matrix* x_i, double t_i, do
  * @param x_f Array to store the final x into. This should be preallocated
  * @param params Parameters to be passed to A(t)
  ******************************************************************************/
-
 void bulsto_final_matrix_floquet_type_real(gsl_matrix* x_i, double t_i, double H, double delta, void (*A)(double, gsl_matrix*, void*), gsl_matrix* x_f, void* params);
 
 #endif

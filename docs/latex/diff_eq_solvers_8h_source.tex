@@ -1,0 +1,40 @@
+\hypertarget{diff_eq_solvers_8h_source}{}\doxysection{diff\+Eq\+Solvers.\+h}
+\label{diff_eq_solvers_8h_source}\index{include/diffEqSolvers.h@{include/diffEqSolvers.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001 \textcolor{preprocessor}{\#ifndef DIFFEQ\_SOLVERS}}
+\DoxyCodeLine{00003 \textcolor{preprocessor}{\#define DIFFEQ\_SOLVERS}}
+\DoxyCodeLine{00004 }
+\DoxyCodeLine{00005 \textcolor{preprocessor}{\#include <stdio.h>}}
+\DoxyCodeLine{00006 \textcolor{preprocessor}{\#include <stdlib.h>}}
+\DoxyCodeLine{00007 \textcolor{preprocessor}{\#include <math.h>}}
+\DoxyCodeLine{00008 \textcolor{preprocessor}{\#include <gsl/gsl\_math.h>}}
+\DoxyCodeLine{00009 \textcolor{preprocessor}{\#include <gsl/gsl\_cblas.h>}}
+\DoxyCodeLine{00010 \textcolor{preprocessor}{\#include <gsl/gsl\_matrix.h>}}
+\DoxyCodeLine{00011 \textcolor{preprocessor}{\#include <gsl/gsl\_blas.h>}}
+\DoxyCodeLine{00012 \textcolor{preprocessor}{\#include <gsl/gsl\_complex.h>}}
+\DoxyCodeLine{00013 \textcolor{preprocessor}{\#include <gsl/gsl\_complex\_math.h>}}
+\DoxyCodeLine{00014 }
+\DoxyCodeLine{00015 \textcolor{preprocessor}{\#define GSL\_RANGE\_CHECK\_OFF}}
+\DoxyCodeLine{00016 \textcolor{preprocessor}{\#define HAVE\_INLINE}}
+\DoxyCodeLine{00017 }
+\DoxyCodeLine{00018 \textcolor{preprocessor}{\#define RK4\_MAX\_SCALE 5}}
+\DoxyCodeLine{00019 \textcolor{preprocessor}{\#define RK4\_MIN\_SCALE 0.2}}
+\DoxyCodeLine{00020 \textcolor{preprocessor}{\#define RK4\_MAX\_SLICES 1e8}}
+\DoxyCodeLine{\Hypertarget{diff_eq_solvers_8h_source_l00021}\mbox{\hyperlink{diff_eq_solvers_8h_ab101eeff378a7dedd4d59682edecc543}{00021}} \textcolor{preprocessor}{\#define BULSTO\_STEP\_MAX 16 }}
+\DoxyCodeLine{\Hypertarget{diff_eq_solvers_8h_source_l00022}\mbox{\hyperlink{diff_eq_solvers_8h_a0995a28e4db94db117ab6f97514d3bd8}{00022}} \textcolor{preprocessor}{\#define BULSTO\_MAX\_LAYERS 32 }}
+\DoxyCodeLine{00023 \textcolor{preprocessor}{}}
+\DoxyCodeLine{00024 }
+\DoxyCodeLine{00037 \textcolor{keywordtype}{void} \mbox{\hyperlink{diff_eq_solvers_8h_a80410c381d45db2a6b3e6fb457b4763e}{rk4\_fixed\_final\_vector\_real}}(\textcolor{keywordtype}{int} ndim, \textcolor{keywordtype}{double}* x\_i, \textcolor{keywordtype}{double} t\_i, \textcolor{keywordtype}{double} H, \textcolor{keywordtype}{double} h, \textcolor{keywordtype}{void} (*evol\_func)(\textcolor{keywordtype}{double}*, \textcolor{keywordtype}{double}, \textcolor{keywordtype}{double}*, \textcolor{keywordtype}{void}*), \textcolor{keywordtype}{double}* x\_f, \textcolor{keywordtype}{void}* params);}
+\DoxyCodeLine{00038 }
+\DoxyCodeLine{00050 \textcolor{keywordtype}{void} \mbox{\hyperlink{diff_eq_solvers_8h_adea071b2e50926df1b1e49b4ede2006d}{rk4\_fixed\_final\_matrix\_floquet\_type\_real}}(gsl\_matrix* x\_i, \textcolor{keywordtype}{double} t\_i, \textcolor{keywordtype}{double} H, \textcolor{keywordtype}{double} h, \textcolor{keywordtype}{void} (*A)(\textcolor{keywordtype}{double}, gsl\_matrix*, \textcolor{keywordtype}{void}*), gsl\_matrix* x\_f, \textcolor{keywordtype}{void}* params);}
+\DoxyCodeLine{00051 }
+\DoxyCodeLine{00063 \textcolor{keywordtype}{void} \mbox{\hyperlink{diff_eq_solvers_8h_ad579183a7a1c86772d12696e198bfcf4}{rk4\_fixed\_final\_matrix\_floquet\_type\_complex}}(gsl\_matrix\_complex* x\_i, \textcolor{keywordtype}{double} t\_i, \textcolor{keywordtype}{double} H, \textcolor{keywordtype}{double} h, \textcolor{keywordtype}{void} (*A)(\textcolor{keywordtype}{double}, gsl\_matrix\_complex*, \textcolor{keywordtype}{void}*), gsl\_matrix\_complex* x\_f, \textcolor{keywordtype}{void}* params);}
+\DoxyCodeLine{00064 }
+\DoxyCodeLine{00076 \textcolor{keywordtype}{void} \mbox{\hyperlink{diff_eq_solvers_8h_a857b28cb9668e1433ba7f7322000d4b5}{rk4\_adaptive\_final\_matrix\_floquet\_type\_real}}(gsl\_matrix* x\_i, \textcolor{keywordtype}{double} t\_i, \textcolor{keywordtype}{double} H, \textcolor{keywordtype}{double} delta, \textcolor{keywordtype}{void} (*A)(\textcolor{keywordtype}{double}, gsl\_matrix*, \textcolor{keywordtype}{void}*), gsl\_matrix* x\_f, \textcolor{keywordtype}{void}* params);}
+\DoxyCodeLine{00077 }
+\DoxyCodeLine{00089 \textcolor{keywordtype}{void} \mbox{\hyperlink{diff_eq_solvers_8h_ac838e3f0db14582b9d166666a4376bd3}{bulsto\_final\_matrix\_floquet\_type\_real}}(gsl\_matrix* x\_i, \textcolor{keywordtype}{double} t\_i, \textcolor{keywordtype}{double} H, \textcolor{keywordtype}{double} delta, \textcolor{keywordtype}{void} (*A)(\textcolor{keywordtype}{double}, gsl\_matrix*, \textcolor{keywordtype}{void}*), gsl\_matrix* x\_f, \textcolor{keywordtype}{void}* params);}
+\DoxyCodeLine{00090 }
+\DoxyCodeLine{00091 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

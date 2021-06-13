@@ -1,0 +1,6 @@
+Hill-Meissner Stability Plot
+$\omega^2$
+$\alpha^2$
+9.000000 -1.000000
+0.000000 9.000000
+320 320

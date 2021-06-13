@@ -1,0 +1,6 @@
+Damped Mathieu Stability Plot ($k=0.5$)
+$\delta$
+$\epsilon$
+60.000000 -5.000000
+0.000000 20.000000
+320 320
