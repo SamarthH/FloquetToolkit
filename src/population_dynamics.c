@@ -42,7 +42,7 @@ void fitness_periodic(double t, gsl_matrix* A_val, void* param)
 int main()
 {
 	int n = 2;
-	double T = M_PI;
+	double T = 1.;
 
 	double start = 0.;
 	double end = 100.;
